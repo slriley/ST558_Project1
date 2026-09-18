@@ -3,3 +3,49 @@ title: "Riley_Project1"
 format: html
 ---
 
+# Project Description
+This project will manipulate and process data sets from a census API and then summarize and plot returned data, mainly using custom functions.
+
+# Author Information
+Author: Shannon Riley
+Organization: NCSU ST 558
+Date: Fall 2026 (Completed ___)
+
+## Data
+This project will utilize the Public Use Microdata Sample (PUMS) Census API. We will consider the years 2021-2024 for the basic 1-Year Estimates (will not include Puerto Rico).
+
+```{r}
+#| echo: false
+#| output: false
+# Load required packages
+library(dplyr)    # to perform basic EDA
+library(ggplot2)  # to make nice plots
+library(httr)     # to query an API
+library(jsonlite) # to parse results of API query, tidyjson is another possible package to use
+library(readr)    # to read in CSV data
+library(stringr)  # to create clean column names
+library(tidyr)    # to clean up tibbles
+```
+
+First, the JSON files with the variable descriptions for each year (2021-2024) will be downloaded. We only want to parse the following subset of variables:
++ AGEP - Age
++ GASP - Gas cost (monthly cost, use ADJHSG to adjust GASP to constant dollars)
++ GRPIP - Gross rent as a percentage of household income past 12 months
++ JWAP - Time of arrival at work (hour and minute)
++ JWDP - Time of departure for work (hour and minute)
++ JWMNP - Travel time to work
++ PWGTP - PUMS person weight
++ FER - Gave birth to child within the past 12 months
++ HHL - Household language
++ SCH - School enrollment
++ SCHL - Educational attainment
++ SEX - Sex
++ ST (for 2021, 2022)/STATE (for 2023, 2024) - State Code based on 2020 Census definitions
++ REGION - Region code based on 2020 Census definitions
++ DIVISION - Division code based on 2020 Census definitions
+
+Pull each year's list variable values using the *GET()* function from the *httr* package:
+```{r}
+varVal2021 <- GET('https://api.census.gov/data/2021/acs/acs1/pums/variables.json')
+str(varVal2021, max.level = 1)
+```
