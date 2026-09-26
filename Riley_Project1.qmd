@@ -44,8 +44,209 @@ First, the JSON files with the variable descriptions for each year (2021-2024) w
 + REGION - Region code based on 2020 Census definitions
 + DIVISION - Division code based on 2020 Census definitions
 
-Pull each year's list variable values using the *GET()* function from the *httr* package:
+To avoid repetitive code, write a function to pull each year's variable and their values and put them in a list, then save the all the lists to an *.rds* file:
+/
+First, create a vector the years we're interested in:
 ```{r}
-varVal2021 <- GET('https://api.census.gov/data/2021/acs/acs1/pums/variables.json')
-str(varVal2021, max.level = 1)
+years <- c('2021', '2022', '2023', '2024')
 ```
+
+Next, create two vectors of the desired variables, since one the "state" variable is named differently in different years:
+```{r}
+subVar2122 <- c('AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP', 'PWGTP', 'FER', 'HHL', 'SCH', 'SCHL', 'SEX', 'ST', 'REGION', 'DIVISION')
+subVar2324 <- c('AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP', 'PWGTP', 'FER', 'HHL', 'SCH', 'SCHL', 'SEX', 'STATE', 'REGION', 'DIVISION')
+```
+
+Now, write a function to access the JSON, parse the data, and pull out the desired variables and their values for a given year:
+```{r}
+getVarVal <- function(year) {
+  # Download the JSON
+  getURL <- GET(paste0('https://api.census.gov/data/', year, '/acs/acs1/pums/variables.json'))
+  # Parse the JSON
+  jsonParse <- fromJSON(rawToChar(getURL$content))
+  # Create an empty list for the variables and their values to go in
+  subVarLs <- list()
+  # Check what the value of year is and use the first for loop if it is 2021 or 2022 and the second for loop if it is 2023 or 2024
+  if (year == '2021' | year == '2022') {
+    # Loop through each value in the subset of variables vector
+    for (i in subVar2122) {
+      # Pull the variable and its values out of the large list and put them in a list
+      subVarLs <- c(subVarLs, jsonParse[["variables"]][i])
+    }
+  } else {
+    for (i in subVar2324) {
+      subVarLs <- c(subVarLs, jsonParse[["variables"]][i])
+    }
+  }
+  # Return the list with the variables and their values
+  return(subVarLs)
+}
+```
+
+Run this function on each value in the vector of years:
+*For some reason this doesn't work if I put assign() in return(), but does otherwise
+```{r}
+for (year in years) {
+  assign(x = paste0('varList', year), value = getVarVal(year))
+}
+```
+
+Now save all four year lists to an .rds file
+```{r}
+write_rds(list(varList2021 = varList2021, varList2022 = varList2022, varList2023 = varList2023, varList2024 = varList2024), file = 'data/varLists.rds', compress = 'none')
+```
+
+
+<!-- Pull each year's list variable values using the *GET()* function from the *httr* package: -->
+<!-- ```{r} -->
+<!-- varVal21 <- GET('https://api.census.gov/data/2021/acs/acs1/pums/variables.json') -->
+<!-- str(varVal21, max.level = 1) -->
+<!-- ``` -->
+
+<!-- Parse the JSON with the variables and the values each variable can take then pull out the desired variables (listed above): -->
+<!-- ```{r} -->
+<!-- varParse <- fromJSON(rawToChar(varVal21$content)) -->
+<!-- subVar <- c('AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP', 'PWGTP', 'FER', 'HHL', 'SCH', 'SCHL', 'SEX', 'ST', 'REGION', 'DIVISION') -->
+
+<!-- subVarLs <- list() -->
+<!-- for (i in subVar) { -->
+<!--   subVarLs <- c(subVarLs, varParse[["variables"]][i]) -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+Now write a function allow users to easily query the PUMS API:
+
+First, get a given URL
+```{r}
+pums2021 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+str(pums2021, max.level = 1)
+```
+
+Then, take the result of GET() and turn it into a nice tibble
+```{r}
+pumstbl <- as_tibble(fromJSON(rawToChar(pums2021$content)))
+colnames(pumstbl) <- c(pumstbl[1,])
+pumstbl <- slice(pumstbl, -1)
+pumstbl
+```
+
+Create vectors of allowable values for *specificGeography* argument in *getPUMS()* function for user to reference if necessary:
+```{r}
+regionValues <- unname(unlist(c(varList2021$REGION$values)))
+divisionValues <- unname(unlist(c(varList2021$DIVISION$values)))
+stateValues <- unname(unlist(c(varList2021$ST$values)))
+```
+
+
+Combine these functions with input specifications to make a single function:
+```{r}
+getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), categoricalVariables = c('SEX'), geographyLevel = 'STATE', specificGeography = NULL, APIkey, ...) {
+  
+  # Read in .rds file with lists of variables and their values for each year
+  varLists <- readRDS('data/varLists.rds')
+  
+  
+  # Vectors to check inputs against
+  allowNumVar <- c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
+  allowCatVar <- c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
+  allowGeoLev <- c('REGION', 'DIVISION', 'STATE')
+  allowRegion <- unname(unlist(c(varLists$varList2021$REGION$values)))
+  allowDivision <- unname(unlist(c(varLists$varList2021$DIVISION$values)))
+  allowState <- unname(unlist(c(varLists$varList2021$ST$values)))
+  
+  
+  # Check inputs and return error message if criteria aren't met
+  if(year != '2021' | year != '2022' | year != '2023' | year != '2024') {
+    stop('"year" must be a single year between 2021 and 2024, input as a character string.')
+  }
+  if(!('PWGTP' %in% numericVariables) | length(numericVariables) < 2 | !(numericVariables %in% allowNumVar)) {
+    stop('numericVariables must be a vector containing PWGTP and at least one of the following variables: AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP.')
+  }
+  if(length(categoricalVariables) < 1 | !(categoricalVariables %in% allowCatVar)) {
+    stop('categoricalVariables must be a vector containing at least one of the following variables: FER, HHL, SCH, SCHL, and SEX.')
+  }
+  if(length(geographyLevel) > 1 | !(geographyLevel %in% allowGeoLev)) {
+    stop('geographyLevel must be only one of the following variables: REGION, DIVISION, or STATE.')
+  }
+  if(specificGeography != 'ALL' | specificGeography != 'all' | specificGeography != 'All' | geographyLevel == 'REGION' & !(specificGeography %in% allowRegion) | geographyLevel == 'DIVISION' & !(specificGeography %in% allowDivision) | geographyLevel == 'STATE' & !(specificGeography %in% allowState)) {
+  stop('specificGeography must be ALL or one of the allowable values associated with the specified value of geographyLevel. See vectors regionValues, divisionValues, and stateValues for allowable values for specificGeography.')
+  }
+  if(!is.character(API_key)) {
+    stop('API key must be character string.')
+  }
+  
+  
+  # Specify default values for 'specificGeography' if user leaves argument NULL
+  if (is.null(specificGeography) & geographyLevel == 'REGION') {
+    specificGeography <- 'West'
+  } else if (is.null(specificGeography) & geographyLevel == 'DIVISION') {
+    specificGeography <- 'Pacific (West region)'
+  } else if (is.null(specificGeography) & geographyLevel == 'STATE') {
+    specificGeography <- 'Oregon/OR'
+  }
+  
+  # Get numeric values corresponding to specificGeography inputs to paste into
+  # URL so that the user can put in a 'expected' value rather than a number
+  if (geographyLevel == 'REGION') {
+    specificGeographyNum <- names(which(unlist(varLists$varList2021$REGION$values$item) == specificGeography))
+  } else if (geographyLevel == 'DIVISION') {
+    specificGeographyNum <- names(which(unlist(varLists$varList2021$DIVISION$values$item) == specificGeography))
+  } else if (geographyLevel == 'STATE') {
+    specificGeographyNum <- names(which(unlist(varLists$varList2021$ST$values$item) == specificGeography))
+  }
+  
+  
+  # Get data from API
+  pums <- GET(paste0('https://api.census.gov/data/', year, '/acs/acs1/pums?get=', paste(numericVariables, collapse = ','), ',', paste(categoricalVariables, collapse = ','), '&for=', geographyLevel, ':', specificGeographyNum, '&key=', APIkey))
+  
+  
+  # Pull out the data and convert it to a tibble
+  pumstbl <- as_tibble(fromJSON(rawToChar(pums$content)))
+  colnames(pumstbl) <- c(pumstbl[1,])
+  pumstbl <- slice(pumstbl, -1)
+  pumstbl
+  
+  
+  # Convert variables to the correct type
+  # Numeric (PWGTP, AGEP, GASP, GRPIP, JWAP (time), JWDP (time), and JWMNP)
+  for (i in 1:ncol(pumstbl)) {
+    if (colnames(pumstbl)[i] %in% allowNumVar) {
+      pumstbl[,i] <- as.numeric(unlist(pumstbl[,i])) 
+    }
+  }
+  
+  # Time (JWAP, JWDP)
+  jwapValues <- t(data.frame(varList2024$JWAP$values$item))
+  jwapValues <- data.frame(item = names(varList2024$JWAP$values$item), 
+                           value = jwapValues, 
+                           row.names = NULL)
+  jwapValues <- separate_wider_delim(jwapValues, 
+                                     cols = 'value', 
+                                     delim = ' to ',
+                                     names = c('bRange', 'eRange'))
+  
+  
+  
+}
+```
+
+Values to test function with
+year <- '2024'
+numericVariables <- c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
+categoricalVariables <- c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
+geographyLevel <- 'STATE'
+specificGeography <- 'Maine/ME'
+APIkey <- '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce'
+
+```{r}
+pumsTest <- GET('https://api.census.gov/data/2024/acs/acs1/pums?get=SEX,PWGTP,MAR&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+
+pumsTest2 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&for=state:*&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+pumstbltest2 <- as_tibble(fromJSON(rawToChar(pumsTest2$content)))
+
+pumsTest4 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&for=STATE:16&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+pumstbltest4 <- as_tibble(fromJSON(rawToChar(pumsTest3$content)))
+```
+
