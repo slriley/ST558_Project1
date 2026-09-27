@@ -29,6 +29,8 @@ library(stringr)   # to create clean column names
 library(tidyr)     # to clean up tibbles
 ```
 
+### ACS 1-Year Public Use Microdata Sample Variables
+
 First, the JSON files with the variable descriptions for each year (2021-2024) will be downloaded. We only want to parse the following subset of variables:
 + AGEP - Age
 + GASP - Gas cost (monthly cost, use ADJHSG to adjust GASP to constant dollars)
@@ -62,16 +64,22 @@ subVar2324 <- c('AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP', 'PWGTP', 'FER'
 Now, write a function to access the JSON, parse the data, and pull out the desired variables and their values for a given year:
 ```{r}
 getVarVal <- function(year) {
+  
   # Download the JSON
   getURL <- GET(paste0('https://api.census.gov/data/', year, '/acs/acs1/pums/variables.json'))
+  
   # Parse the JSON
   jsonParse <- fromJSON(rawToChar(getURL$content))
+  
   # Create an empty list for the variables and their values to go in
   subVarLs <- list()
+  
   # Check what the value of year is and use the first for loop if it is 2021 or 2022 and the second for loop if it is 2023 or 2024
   if (year == '2021' | year == '2022') {
+    
     # Loop through each value in the subset of variables vector
     for (i in subVar2122) {
+      
       # Pull the variable and its values out of the large list and put them in a list
       subVarLs <- c(subVarLs, jsonParse[["variables"]][i])
     }
@@ -80,130 +88,126 @@ getVarVal <- function(year) {
       subVarLs <- c(subVarLs, jsonParse[["variables"]][i])
     }
   }
+  
   # Return the list with the variables and their values
   return(subVarLs)
 }
 ```
 
 Run this function on each value in the vector of years:
-*For some reason this doesn't work if I put assign() in return(), but does otherwise
 ```{r}
 for (year in years) {
   assign(x = paste0('varList', year), value = getVarVal(year))
 }
 ```
 
-Now save all four year lists to an .rds file
+Now save all four year lists to an .rds file:
 ```{r}
 write_rds(list(varList2021 = varList2021, varList2022 = varList2022, varList2023 = varList2023, varList2024 = varList2024), file = 'data/varLists.rds', compress = 'none')
 ```
 
+```{r}
+# Clear the environment of everything not needed after this section
+rm(list=ls())
+```
 
-<!-- Pull each year's list variable values using the *GET()* function from the *httr* package: -->
-<!-- ```{r} -->
-<!-- varVal21 <- GET('https://api.census.gov/data/2021/acs/acs1/pums/variables.json') -->
-<!-- str(varVal21, max.level = 1) -->
-<!-- ``` -->
 
-<!-- Parse the JSON with the variables and the values each variable can take then pull out the desired variables (listed above): -->
-<!-- ```{r} -->
-<!-- varParse <- fromJSON(rawToChar(varVal21$content)) -->
-<!-- subVar <- c('AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP', 'PWGTP', 'FER', 'HHL', 'SCH', 'SCHL', 'SEX', 'ST', 'REGION', 'DIVISION') -->
+### Set up data frames/vectors to parse variables from the PUMS Census data
 
-<!-- subVarLs <- list() -->
-<!-- for (i in subVar) { -->
-<!--   subVarLs <- c(subVarLs, varParse[["variables"]][i]) -->
-<!-- } -->
+*Should I move all of this section into the function?*
 
-<!-- ``` -->
-
+Read in the .rds file of variables and their possible values created in the section above
+```{r}
+varLists <- readRDS('data/varLists.rds')
+```
 
 
 Create a correctly formatted data frame of JWAP values to parse the JWAP variable if the user requests it:
 ```{r}
 # Pull out the named values possible for the JWAP variable and convert them to a one-column data frame
-  jwapValues <- t(data.frame(varList2024$JWAP$values$item))
-  # Move the names of the values into a column
-  jwapValues <- data.frame(item = as.numeric(names(varList2024$JWAP$values$item)), 
-                           value = jwapValues, 
-                           row.names = NULL)
-  # Remove the observation for NA values
-  jwapValues <- subset(jwapValues, item != 0)
-  # Split the value column into two columns in order to calculate the midpoint of the time period
-  jwapValues <- separate_wider_delim(jwapValues, 
-                                     cols = 'value', 
-                                     delim = ' to ',
-                                     names = c('bRange', 'eRange'))
-    # Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
-  jwapValues$bRange <- str_replace_all(jwapValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
-  jwapValues$eRange <- str_replace_all(jwapValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
-  # Convert the 'bRange' and 'eRange' variables into time objects
-  jwapValues$bRange <- parse_date_time(jwapValues$bRange, '%I:%M %p')
-  jwapValues$eRange <- parse_date_time(jwapValues$eRange, '%I:%M %p')
-  jwapValues$midpoint <- as_hms(jwapValues$bRange + ((jwapValues$eRange - jwapValues$bRange)/2))
-  # Add a value for missing time values back in (to correspond with the original value "N/A (not a worker; worker who worked from home)")
-  jwapValues <- rbind(jwapValues, c(0, NA, NA, NA))
+jwapValues <- t(data.frame(varLists$varList2024$JWAP$values$item))
+
+# Move the names of the values into a column
+jwapValues <- data.frame(item = as.numeric(names(varLists$varList2024$JWAP$values$item)), 
+                         value = jwapValues, 
+                         row.names = NULL)
+
+# Remove the observation for NA values
+jwapValues <- subset(jwapValues, item != 0)
+
+# Split the value column into two columns in order to calculate the midpoint of the time period
+jwapValues <- separate_wider_delim(jwapValues, 
+                                   cols = 'value', 
+                                   delim = ' to ',
+                                   names = c('bRange', 'eRange'))
+
+# Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
+jwapValues$bRange <- str_replace_all(jwapValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+jwapValues$eRange <- str_replace_all(jwapValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+
+# Convert the 'bRange' and 'eRange' variables into time objects
+jwapValues$bRange <- parse_date_time(jwapValues$bRange, '%I:%M %p')
+jwapValues$eRange <- parse_date_time(jwapValues$eRange, '%I:%M %p')
+
+# Calculate the middle of each time period
+jwapValues$midpoint <- as_hms(jwapValues$bRange + ((jwapValues$eRange - jwapValues$bRange)/2))
+
+# Add a value for missing time values back in (to correspond with the original value "N/A (not a worker; worker who worked from home)")
+jwapValues <- rbind(jwapValues, c(0, NA, NA, NA))
 ```
 
 Create a correctly formatted data frame of JWDP values to parse the JWDP variable if the user requests it:
 ```{r}
 # Pull out the named values possible for the JWDP variable and convert them to a one-column data frame
-  jwdpValues <- t(data.frame(varList2024$JWDP$values$item))
-  # Move the names of the values into a column
-  jwdpValues <- data.frame(item = as.numeric(names(varList2024$JWDP$values$item)), 
-                           value = jwdpValues, 
-                           row.names = NULL)
-  # Remove the observation for NA values
-  jwdpValues <- subset(jwdpValues, item != 0)
-  # Split the value column into two columns in order to calculate the midpoint of the time period
-  jwdpValues <- separate_wider_delim(jwdpValues, 
-                                     cols = 'value', 
-                                     delim = ' to ',
-                                     names = c('bRange', 'eRange'))
-    # Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
-  jwdpValues$bRange <- str_replace_all(jwdpValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
-  jwdpValues$eRange <- str_replace_all(jwdpValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
-  # Convert the 'bRange' and 'eRange' variables into time objects
-  jwdpValues$bRange <- parse_date_time(jwdpValues$bRange, '%I:%M %p')
-  jwdpValues$eRange <- parse_date_time(jwdpValues$eRange, '%I:%M %p')
-  jwdpValues$midpoint <- as_hms(jwdpValues$bRange + ((jwdpValues$eRange - jwdpValues$bRange)/2))
-  # Add a value for missing time values back in (to correspond with the original value "N/A (not a worker; worker who worked from home)")
-  jwdpValues <- rbind(jwdpValues, c(0, NA, NA, NA))
+jwdpValues <- t(data.frame(varLists$varList2024$JWDP$values$item))
+
+# Move the names of the values into a column
+jwdpValues <- data.frame(item = as.numeric(names(varLists$varList2024$JWDP$values$item)), 
+                         value = jwdpValues, 
+                         row.names = NULL)
+
+# Remove the observation for NA values
+jwdpValues <- subset(jwdpValues, item != 0)
+
+# Split the value column into two columns in order to calculate the midpoint of the time period
+jwdpValues <- separate_wider_delim(jwdpValues, 
+                                   cols = 'value', 
+                                   delim = ' to ',
+                                   names = c('bRange', 'eRange'))
+
+# Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
+jwdpValues$bRange <- str_replace_all(jwdpValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+jwdpValues$eRange <- str_replace_all(jwdpValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+
+# Convert the 'bRange' and 'eRange' variables into time objects
+jwdpValues$bRange <- parse_date_time(jwdpValues$bRange, '%I:%M %p')
+jwdpValues$eRange <- parse_date_time(jwdpValues$eRange, '%I:%M %p')
+
+ # Calculate the middle of each time period 
+jwdpValues$midpoint <- as_hms(jwdpValues$bRange + ((jwdpValues$eRange - jwdpValues$bRange)/2))
+
+# Add a value for missing time values back in (to correspond with the original value "N/A (not a worker; worker who worked from home)")
+jwdpValues <- rbind(jwdpValues, c(0, NA, NA, NA))
 ```
 
 Create a vector of educational attainment values to parse the SCHL variable if the user requests it:
 ```{r}
-schlLevels <- c(names(varList2024[["SCHL"]][["values"]][["item"]]))
-schlLabels <- c(unname(unlist(varList2024[["SCHL"]][["values"]][["item"]])))
+schlLevels <- c(names(varLists$varList2024[["SCHL"]][["values"]][["item"]]))
+schlLabels <- c(unname(unlist(varLists$varList2024[["SCHL"]][["values"]][["item"]])))
 ```
 
 
-
-Now write a function allow users to easily query the PUMS API:
-
-First, get a given URL
-```{r}
-pums2021 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
-str(pums2021, max.level = 1)
-```
-
-Then, take the result of GET() and turn it into a nice tibble
-```{r}
-pumstbl <- as_tibble(fromJSON(rawToChar(pums2021$content)))
-colnames(pumstbl) <- c(pumstbl[1,])
-pumstbl <- slice(pumstbl, -1)
-pumstbl
-```
+### Write a function allow users to easily query the PUMS Census API
 
 Create vectors of allowable values for *specificGeography* argument in *getPUMS()* function for user to reference if necessary:
 ```{r}
-regionValues <- unname(unlist(c(varList2021$REGION$values)))
-divisionValues <- unname(unlist(c(varList2021$DIVISION$values)))
-stateValues <- unname(unlist(c(varList2021$ST$values)))
+regionValues   <- unname(unlist(c(varLists$varList2021$REGION$values)))
+divisionValues <- unname(unlist(c(varLists$varList2021$DIVISION$values)))
+stateValues    <- unname(unlist(c(varLists$varList2021$ST$values)))
 ```
 
 
-Combine these functions with input specifications to make a single function:
+Write a function to query the PUM Census API and output a cleanly formatted tibble:
 ```{r}
 getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), categoricalVariables = c('SEX'), geographyLevel = 'STATE', specificGeography = NULL, APIkey, ...) {
   
@@ -212,33 +216,50 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
   
   
   # Vectors to check inputs against
-  allowNumVar <- c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
-  allowCatVar <- c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
-  allowGeoLev <- c('REGION', 'DIVISION', 'STATE')
-  allowRegion <- unname(unlist(c(varLists$varList2021$REGION$values)))
+  allowNumVar   <- c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
+  allowCatVar   <- c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
+  allowGeoLev   <- c('REGION', 'DIVISION', 'STATE')
+  allowRegion   <- unname(unlist(c(varLists$varList2021$REGION$values)))
   allowDivision <- unname(unlist(c(varLists$varList2021$DIVISION$values)))
-  allowState <- unname(unlist(c(varLists$varList2021$ST$values)))
+  allowState    <- unname(unlist(c(varLists$varList2021$ST$values)))
   
   
   # Check inputs and return error message if criteria aren't met
-  if(year != '2021' | year != '2022' | year != '2023' | year != '2024') {
+  
+  # year
+  if(length(year) > 1 | !(year %in% c('2021', '2022', '2023', '2024'))) {
     stop('"year" must be a single year between 2021 and 2024, input as a character string.')
   }
-  if(!('PWGTP' %in% numericVariables) | length(numericVariables) < 2 | !(numericVariables %in% allowNumVar)) {
+  
+  # numericVariables
+  if(length(numericVariables) < 2 | !('PWGTP' %in% numericVariables)) {
     stop('numericVariables must be a vector containing PWGTP and at least one of the following variables: AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP.')
   }
-  if(length(categoricalVariables) < 1 | !(categoricalVariables %in% allowCatVar)) {
-    stop('categoricalVariables must be a vector containing at least one of the following variables: FER, HHL, SCH, SCHL, and SEX.')
+  for (i in 1:length(numericVariables)) {
+    if(!(numericVariables[i] %in% allowNumVar)) {
+      stop('numericVariables must be a vector containing PWGTP and at least one of the following variables: AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP.')
+    }
   }
-  if(length(geographyLevel) > 1 | !(geographyLevel %in% allowGeoLev)) {
-    stop('geographyLevel must be only one of the following variables: REGION, DIVISION, or STATE.')
-  }
-  if(specificGeography != 'ALL' | specificGeography != 'all' | specificGeography != 'All' | geographyLevel == 'REGION' & !(specificGeography %in% allowRegion) | geographyLevel == 'DIVISION' & !(specificGeography %in% allowDivision) | geographyLevel == 'STATE' & !(specificGeography %in% allowState)) {
-  stop('specificGeography must be ALL or one of the allowable values associated with the specified value of geographyLevel. See vectors regionValues, divisionValues, and stateValues for allowable values for specificGeography.')
-  }
-  if(!is.character(API_key)) {
-    stop('API key must be character string.')
-  }
+
+  # # categoricalVariables
+  # if(length(categoricalVariables) < 1 | !(categoricalVariables %in% allowCatVar)) {
+  #   stop('categoricalVariables must be a vector containing at least one of the following variables: FER, HHL, SCH, SCHL, and SEX.')
+  # }
+  # 
+  # # geographyLevel
+  # if(length(geographyLevel) > 1 | !(geographyLevel %in% allowGeoLev)) {
+  #   stop('geographyLevel must be only one of the following variables: REGION, DIVISION, or STATE.')
+  # }
+  # 
+  # # specificGeography
+  # if(specificGeography != 'ALL' | specificGeography != 'all' | specificGeography != 'All' | geographyLevel == 'REGION' & !(specificGeography %in% allowRegion) | geographyLevel == 'DIVISION' & !(specificGeography %in% allowDivision) | geographyLevel == 'STATE' & !(specificGeography %in% allowState)) {
+  # stop('specificGeography must be ALL or one of the allowable values associated with the specified value of geographyLevel. See vectors regionValues, divisionValues, and stateValues for allowable values for specificGeography.')
+  # }
+  # 
+  # # APIkey
+  # if(!is.character(APIkey)) {
+  #   stop('API key must be character string.')
+  # }
   
   
   # Specify default values for 'specificGeography' if user leaves argument NULL
@@ -249,6 +270,7 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
   } else if (is.null(specificGeography) & geographyLevel == 'STATE') {
     specificGeography <- 'Oregon/OR'
   }
+  
   
   # Get numeric values corresponding to specificGeography inputs to paste into
   # URL so that the user can put in a 'expected' value rather than a number
@@ -266,7 +288,8 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
   
   
   # Pull out the data and convert it to a tibble
-  pumstbl <- as_tibble(fromJSON(rawToChar(pums$content)))
+  pumstbl <- as_tibble(fromJSON(rawToChar(pums$content)), 
+                       .name_repair = 'unique_quiet')
   colnames(pumstbl) <- c(pumstbl[1,])
   pumstbl <- slice(pumstbl, -1)
   pumstbl
@@ -333,7 +356,7 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
     pumstbl$GRPIP[pumstbl$GRPIP == 0] = NA
   }
   if ('JWMNP' %in% colnames(pumstbl)) {
-    pumstbl$GRPIP[pumstbl$GRPIP == 0] = NA
+    pumstbl$JWMNP[pumstbl$JWMNP == 0] = NA
   }
   
   
@@ -348,44 +371,32 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
 ```
 
 
+
+### Test function
+
+To Test:
+
 ```{r}
-# Convert the 'bRange' and 'eRange' variables into time objects
-  jwapValues$period <- as.character(hm(jwapValues$eRange)-hm(jwapValues$bRange))
-  jwapValues$midpoint <- hm(jwapValues$bRange) + as.period((as.duration(hm(jwapValues$eRange)-hm(jwapValues$bRange))/2))
-  #Doesn't work because a.m. and p.m. - need them to be AM and PM
-  
-  # Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
-  jwapValues$bRange <- str_replace_all(jwapValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
-  jwapValues$eRange <- str_replace_all(jwapValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
-  # Convert the 'bRange' and 'eRange' variables into time objects
-  jwapValues$bRange <- parse_date_time(jwapValues$bRange, '%I:%M %p')
-  jwapValues$eRange <- parse_date_time(jwapValues$eRange, '%I:%M %p')
-  jwapValues$midpoint <- jwapValues$eRange - jwapValues$bRange
-  # Actually don't need to do all these because three of the time periods actually are 9 minutes instead of 4 which is stupid and annoying, actually I do need it because it's the only way Ive found to deal with AM/PM
-  
-    # Calculate the middle of each time period
-  jwapValues$midpoint <- hm(jwapValues$bRange) + as.period((as.duration(hm(jwapValues$eRange)-hm(jwapValues$bRange))/2))
-  # doesn't work because it ends up with a period instead of a time
-  
+# All defaults except API key
+testFxn <- getPUMS(numericVariables = c('ACR', 'PWGTP'), APIkey = '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+```
+
+```{r}
+rm(testFxn)
 ```
 
 
-Values to test function with
+```{r}
+# Values to test function with
 year <- '2024'
-numericVariables <- c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
-categoricalVariables <- c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
+numericVariables <- c('PWGTP', 'AGEP') #c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
+categoricalVariables <- 'SEX'  #c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
 geographyLevel <- 'STATE'
-specificGeography <- 'Maine/ME'
+specificGeography <- 'Oregon/OR'
 APIkey <- '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce'
 
-```{r}
-pumsTest <- GET('https://api.census.gov/data/2024/acs/acs1/pums?get=SEX,PWGTP,MAR&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
-
-pumsTest2 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&for=state:*&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
-pumstbltest2 <- as_tibble(fromJSON(rawToChar(pumsTest2$content)))
-
-pumsTest4 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&for=STATE:16&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
-pumstbltest4 <- as_tibble(fromJSON(rawToChar(pumsTest3$content)))
+# Remove tester values
+rm(year, numericVariables, categoricalVariables, geographyLevel, specificGeography, specificGeographyNum, APIkey)
 ```
 
 ```{r}
@@ -395,3 +406,9 @@ pumstbltest4 <- as_tibble(fromJSON(rawToChar(pumsTest3$content)))
   pumstblOg
 ```
 
+
+
+Things to change if time
+Allow state input to just be state name or abbreviation instead of both
+Change state/region/division to the value instead of a number
+Clean up stop statements like saying must be only one of these variables
