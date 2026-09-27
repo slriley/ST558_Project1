@@ -18,13 +18,15 @@ This project will utilize the Public Use Microdata Sample (PUMS) Census API. We 
 #| echo: false
 #| output: false
 # Load required packages
-library(dplyr)    # to perform basic EDA
-library(ggplot2)  # to make nice plots
-library(httr)     # to query an API
-library(jsonlite) # to parse results of API query, tidyjson is another possible package to use
-library(readr)    # to read in CSV data
-library(stringr)  # to create clean column names
-library(tidyr)    # to clean up tibbles
+library(dplyr)     # to perform basic EDA
+library(ggplot2)   # to make nice plots
+library(hms)       # to parse times
+library(httr)      # to query an API
+library(jsonlite)  # to parse results of API query, tidyjson is another possible package to use
+library(lubridate) # to parse times
+library(readr)     # to read in CSV data
+library(stringr)   # to create clean column names
+library(tidyr)     # to clean up tibbles
 ```
 
 First, the JSON files with the variable descriptions for each year (2021-2024) will be downloaded. We only want to parse the following subset of variables:
@@ -114,6 +116,67 @@ write_rds(list(varList2021 = varList2021, varList2022 = varList2022, varList2023
 <!-- } -->
 
 <!-- ``` -->
+
+
+
+Create a correctly formatted data frame of JWAP values to parse the JWAP variable if the user requests it:
+```{r}
+# Pull out the named values possible for the JWAP variable and convert them to a one-column data frame
+  jwapValues <- t(data.frame(varList2024$JWAP$values$item))
+  # Move the names of the values into a column
+  jwapValues <- data.frame(item = as.numeric(names(varList2024$JWAP$values$item)), 
+                           value = jwapValues, 
+                           row.names = NULL)
+  # Remove the observation for NA values
+  jwapValues <- subset(jwapValues, item != 0)
+  # Split the value column into two columns in order to calculate the midpoint of the time period
+  jwapValues <- separate_wider_delim(jwapValues, 
+                                     cols = 'value', 
+                                     delim = ' to ',
+                                     names = c('bRange', 'eRange'))
+    # Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
+  jwapValues$bRange <- str_replace_all(jwapValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+  jwapValues$eRange <- str_replace_all(jwapValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+  # Convert the 'bRange' and 'eRange' variables into time objects
+  jwapValues$bRange <- parse_date_time(jwapValues$bRange, '%I:%M %p')
+  jwapValues$eRange <- parse_date_time(jwapValues$eRange, '%I:%M %p')
+  jwapValues$midpoint <- as_hms(jwapValues$bRange + ((jwapValues$eRange - jwapValues$bRange)/2))
+  # Add a value for missing time values back in (to correspond with the original value "N/A (not a worker; worker who worked from home)")
+  jwapValues <- rbind(jwapValues, c(0, NA, NA, NA))
+```
+
+Create a correctly formatted data frame of JWDP values to parse the JWDP variable if the user requests it:
+```{r}
+# Pull out the named values possible for the JWDP variable and convert them to a one-column data frame
+  jwdpValues <- t(data.frame(varList2024$JWDP$values$item))
+  # Move the names of the values into a column
+  jwdpValues <- data.frame(item = as.numeric(names(varList2024$JWDP$values$item)), 
+                           value = jwdpValues, 
+                           row.names = NULL)
+  # Remove the observation for NA values
+  jwdpValues <- subset(jwdpValues, item != 0)
+  # Split the value column into two columns in order to calculate the midpoint of the time period
+  jwdpValues <- separate_wider_delim(jwdpValues, 
+                                     cols = 'value', 
+                                     delim = ' to ',
+                                     names = c('bRange', 'eRange'))
+    # Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
+  jwdpValues$bRange <- str_replace_all(jwdpValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+  jwdpValues$eRange <- str_replace_all(jwdpValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+  # Convert the 'bRange' and 'eRange' variables into time objects
+  jwdpValues$bRange <- parse_date_time(jwdpValues$bRange, '%I:%M %p')
+  jwdpValues$eRange <- parse_date_time(jwdpValues$eRange, '%I:%M %p')
+  jwdpValues$midpoint <- as_hms(jwdpValues$bRange + ((jwdpValues$eRange - jwdpValues$bRange)/2))
+  # Add a value for missing time values back in (to correspond with the original value "N/A (not a worker; worker who worked from home)")
+  jwdpValues <- rbind(jwdpValues, c(0, NA, NA, NA))
+```
+
+Create a vector of educational attainment values to parse the SCHL variable if the user requests it:
+```{r}
+schlLevels <- c(names(varList2024[["SCHL"]][["values"]][["item"]]))
+schlLabels <- c(unname(unlist(varList2024[["SCHL"]][["values"]][["item"]])))
+```
+
 
 
 Now write a function allow users to easily query the PUMS API:
@@ -210,27 +273,102 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
   
   
   # Convert variables to the correct type
-  # Numeric (PWGTP, AGEP, GASP, GRPIP, JWAP (time), JWDP (time), and JWMNP)
+  # Numeric (PWGTP, AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP)
   for (i in 1:ncol(pumstbl)) {
     if (colnames(pumstbl)[i] %in% allowNumVar) {
       pumstbl[,i] <- as.numeric(unlist(pumstbl[,i])) 
     }
   }
   
-  # Time (JWAP, JWDP)
-  jwapValues <- t(data.frame(varList2024$JWAP$values$item))
-  jwapValues <- data.frame(item = names(varList2024$JWAP$values$item), 
-                           value = jwapValues, 
-                           row.names = NULL)
-  jwapValues <- separate_wider_delim(jwapValues, 
-                                     cols = 'value', 
-                                     delim = ' to ',
-                                     names = c('bRange', 'eRange'))
+  # Time - replace the numeric code value with the time (JWAP, JWDP)
+  if ('JWAP' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(JWAP = recode_values(JWAP, 
+                                  from = jwapValues$item, 
+                                  to = jwapValues$midpoint))
+  }
+  if ('JWAP' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(JWDP = recode_values(JWDP, 
+                                  from = jwdpValues$item, 
+                                  to = jwdpValues$midpoint))
+  }
+  
+  # Categorical - convert to factor (FER, HHL, SCH, SCHL, and SEX)
+  if ('FER' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(FER = factor(FER, 
+                      levels = c('0', '1', '2'), 
+                      labels = c('N/A (less than 15 years/greater than 50 years/ male)', 'Yes', 'No')))
+  }
+  if ('HHL' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(HHL = factor(HHL, 
+                      levels = c('0', '1', '2', '3', '4', '5'), 
+                      labels = c('N/A (GQ/vacant)', 'English Only', 'Spanish', 'Other Indo-European languages', 'Asian and Pacific Island languages', 'Other Language')))
+  }
+  if ('SCH' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(SCH = factor(SCH, 
+                      levels = c('0', '1', '2', '3'), 
+                      labels = c('N/A (less than 3 years old)', 'No, has not attended in the last 3 months', 'Yes, public school or public college', 'Yes, private school or college or home school')))
+  }
+  if ('SCHL' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(SCHL = factor(SCHL, 
+                      levels = c(schlLevels), 
+                      labels = c(schlLabels)))
+  }
+  if ('SEX' %in% colnames(pumstbl)) {
+    pumstbl <- pumstbl |>
+      mutate(SEX = factor(SEX, levels = c('1', '2'), labels = c('Male', 'Female')))
+  }
+  
+
+  # Replace numbers indicating NA with NA in the numeric variables, if they have an NA value (GASP, GRPIP, and JWMNP)
+  if ('GASP' %in% colnames(pumstbl)) {
+    pumstbl$GASP[pumstbl$GASP == 3] = NA
+  }
+  if ('GRPIP' %in% colnames(pumstbl)) {
+    pumstbl$GRPIP[pumstbl$GRPIP == 0] = NA
+  }
+  if ('JWMNP' %in% colnames(pumstbl)) {
+    pumstbl$GRPIP[pumstbl$GRPIP == 0] = NA
+  }
   
   
+  # Change class of tibble
+  class(pumstbl) <- c('census', class(pumstbl))
+  
+  
+  # Return data
+  return(pumstbl)
   
 }
 ```
+
+
+```{r}
+# Convert the 'bRange' and 'eRange' variables into time objects
+  jwapValues$period <- as.character(hm(jwapValues$eRange)-hm(jwapValues$bRange))
+  jwapValues$midpoint <- hm(jwapValues$bRange) + as.period((as.duration(hm(jwapValues$eRange)-hm(jwapValues$bRange))/2))
+  #Doesn't work because a.m. and p.m. - need them to be AM and PM
+  
+  # Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time class
+  jwapValues$bRange <- str_replace_all(jwapValues$bRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+  jwapValues$eRange <- str_replace_all(jwapValues$eRange, c('a.m.' = 'AM', 'p.m.' = 'PM'))
+  # Convert the 'bRange' and 'eRange' variables into time objects
+  jwapValues$bRange <- parse_date_time(jwapValues$bRange, '%I:%M %p')
+  jwapValues$eRange <- parse_date_time(jwapValues$eRange, '%I:%M %p')
+  jwapValues$midpoint <- jwapValues$eRange - jwapValues$bRange
+  # Actually don't need to do all these because three of the time periods actually are 9 minutes instead of 4 which is stupid and annoying, actually I do need it because it's the only way Ive found to deal with AM/PM
+  
+    # Calculate the middle of each time period
+  jwapValues$midpoint <- hm(jwapValues$bRange) + as.period((as.duration(hm(jwapValues$eRange)-hm(jwapValues$bRange))/2))
+  # doesn't work because it ends up with a period instead of a time
+  
+```
+
 
 Values to test function with
 year <- '2024'
@@ -248,5 +386,12 @@ pumstbltest2 <- as_tibble(fromJSON(rawToChar(pumsTest2$content)))
 
 pumsTest4 <- GET('https://api.census.gov/data/2021/acs/acs1/pums?get=SEX,PWGTP,MAR&for=STATE:16&SCHL=24&key=533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
 pumstbltest4 <- as_tibble(fromJSON(rawToChar(pumsTest3$content)))
+```
+
+```{r}
+ pumstblOg <- as_tibble(fromJSON(rawToChar(pums$content)))
+  colnames(pumstblOg) <- c(pumstblOg[1,])
+  pumstblOg <- slice(pumstblOg, -1)
+  pumstblOg
 ```
 
