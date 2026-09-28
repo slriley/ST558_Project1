@@ -197,7 +197,7 @@ schlLabels <- c(unname(unlist(varLists$varList2024[["SCHL"]][["values"]][["item"
 ```
 
 
-### Write a function allow users to easily query the PUMS Census API
+### Write functions allowing users to easily query the PUMS Census API
 
 Create vectors of allowable values for *specificGeography* argument in *getPUMS()* function for user to reference if necessary:
 ```{r}
@@ -207,7 +207,7 @@ stateValues    <- unname(unlist(c(varLists$varList2021$ST$values)))
 ```
 
 
-Write a function to query the PUM Census API and output a cleanly formatted tibble:
+Write a function to query the PUM Census API and output a cleanly formatted tibble (a single year of data):
 ```{r}
 getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), categoricalVariables = c('SEX'), geographyLevel = 'STATE', specificGeography = NULL, APIkey, ...) {
   
@@ -241,25 +241,30 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
     }
   }
 
-  # # categoricalVariables
-  # if(length(categoricalVariables) < 1 | !(categoricalVariables %in% allowCatVar)) {
-  #   stop('categoricalVariables must be a vector containing at least one of the following variables: FER, HHL, SCH, SCHL, and SEX.')
-  # }
-  # 
-  # # geographyLevel
-  # if(length(geographyLevel) > 1 | !(geographyLevel %in% allowGeoLev)) {
-  #   stop('geographyLevel must be only one of the following variables: REGION, DIVISION, or STATE.')
-  # }
-  # 
-  # # specificGeography
-  # if(specificGeography != 'ALL' | specificGeography != 'all' | specificGeography != 'All' | geographyLevel == 'REGION' & !(specificGeography %in% allowRegion) | geographyLevel == 'DIVISION' & !(specificGeography %in% allowDivision) | geographyLevel == 'STATE' & !(specificGeography %in% allowState)) {
-  # stop('specificGeography must be ALL or one of the allowable values associated with the specified value of geographyLevel. See vectors regionValues, divisionValues, and stateValues for allowable values for specificGeography.')
-  # }
-  # 
-  # # APIkey
-  # if(!is.character(APIkey)) {
-  #   stop('API key must be character string.')
-  # }
+  # categoricalVariables
+  if(length(categoricalVariables) < 1) {
+    stop('categoricalVariables must be a vector containing at least one of the following variables: FER, HHL, SCH, SCHL, and SEX.')
+  }
+  for (i in 1:length(categoricalVariables)) {
+    if(!(categoricalVariables[i] %in% allowCatVar)) {
+      stop('categoricalVariables must be a vector containing at least one of the following variables: FER, HHL, SCH, SCHL, and SEX.')
+    }
+  }
+  
+  # geographyLevel
+  if(length(geographyLevel) > 1 | !(geographyLevel %in% allowGeoLev)) {
+    stop('geographyLevel must be only one of the following variables: REGION, DIVISION, or STATE.')
+  }
+
+  # specificGeography
+  if(geographyLevel == 'REGION' & !(specificGeography %in% c('ALL', 'all', 'All', allowRegion)) | geographyLevel == 'DIVISION' & !(specificGeography %in% c('ALL', 'all', 'All', allowDivision)) | geographyLevel == 'STATE' & !(specificGeography %in% c('ALL', 'all', 'All', allowState))) {
+  stop('specificGeography must be ALL or one of the allowable values associated with the specified value of geographyLevel. See vectors regionValues, divisionValues, and stateValues for allowable values for specificGeography.')
+  }
+
+  # APIkey
+  if(!is.character(APIkey)) {
+    stop('API key must be character string.')
+  }
   
   
   # Specify default values for 'specificGeography' if user leaves argument NULL
@@ -284,7 +289,11 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
   
   
   # Get data from API
-  pums <- GET(paste0('https://api.census.gov/data/', year, '/acs/acs1/pums?get=', paste(numericVariables, collapse = ','), ',', paste(categoricalVariables, collapse = ','), '&for=', geographyLevel, ':', specificGeographyNum, '&key=', APIkey))
+  if (specificGeography %in% c('ALL', 'all', 'All')) {
+    pums <- GET(paste0('https://api.census.gov/data/', year, '/acs/acs1/pums?get=', paste(numericVariables, collapse = ','), ',', paste(categoricalVariables, collapse = ','), '&for=', geographyLevel, ':*&key=', APIkey))
+  } else {
+    pums <- GET(paste0('https://api.census.gov/data/', year, '/acs/acs1/pums?get=', paste(numericVariables, collapse = ','), ',', paste(categoricalVariables, collapse = ','), '&for=', geographyLevel, ':', specificGeographyNum, '&key=', APIkey))
+  }
   
   
   # Pull out the data and convert it to a tibble
@@ -370,6 +379,16 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
 }
 ```
 
+Write a wrapper function allowing the user to query multiple years of PUMS Census API data using the single-year function created above:
+```{r}
+getPUMSyears <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), categoricalVariables = c('SEX'), geographyLevel = 'STATE', specificGeography = NULL, APIkey, ...) {
+  
+  # Use the getPUMS() function to query the PUMS Census API for each year the user specified in the getPUMSyears() function input
+  for (i in year) {
+    
+  }
+}
+```
 
 
 ### Test function
@@ -378,7 +397,7 @@ To Test:
 
 ```{r}
 # All defaults except API key
-testFxn <- getPUMS(numericVariables = c('ACR', 'PWGTP'), APIkey = '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+testFxn <- getPUMS(geographyLevel = 'STATE', specificGeography = 'All', APIkey = '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
 ```
 
 ```{r}
@@ -392,7 +411,7 @@ year <- '2024'
 numericVariables <- c('PWGTP', 'AGEP') #c('PWGTP', 'AGEP', 'GASP', 'GRPIP', 'JWAP', 'JWDP', 'JWMNP')
 categoricalVariables <- 'SEX'  #c('FER', 'HHL', 'SCH', 'SCHL', 'SEX')
 geographyLevel <- 'STATE'
-specificGeography <- 'Oregon/OR'
+specificGeography <- 'All'
 APIkey <- '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce'
 
 # Remove tester values
