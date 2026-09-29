@@ -466,31 +466,31 @@ summary.census <- function(censusTibble, numericVariables = NULL, categoricalVar
   
   # If user does not specify numeric variables
   if (is.null(numericVariables)) {
-    # For each of the numeric variables in the census object
+     # For each of the numeric variables in the census object
      for (i in numVarOptions[numVarOptions %in% colnames(censusTibble)]) {
        # Calculate the sample mean and add it to the vector of variables sample means
-       varMeans <- c(varMeans, (sum(censusTibble[,i]*censusTibble$PWGTP))/(sum(censusTibble$PWGTP)))
-       # Name the elements of the vector (the sample means) with the variable names (the variable each element is the sample mean of)
-       names(varMeans) <- numVarOptions[numVarOptions %in% colnames(censusTibble)]
+       varMeans <- c(varMeans, (sum(censusTibble[,i]*censusTibble$PWGTP, na.rm = TRUE))/(sum(censusTibble$PWGTP, na.rm = TRUE)))
        # Calculate the sample standard deviation and add it to the vector of variable sample standard deviations
-       varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP)/sum(censusTibble$PWGTP)-sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP)^2))
-       # Name the elements of the vector (the sample standard deviations) with the variable names (the variable each element is the sample standard deviation of)
-       names(varSDs) <- numVarOptions[numVarOptions %in% colnames(censusTibble)]
+       varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP, na.rm = TRUE)/sum(censusTibble$PWGTP, na.rm = TRUE)-sum(censusTibble[,i]*censusTibble$PWGTP, na.rm = TRUE)/sum(censusTibble$PWGTP, na.rm = TRUE)^2))
      }
+     # Name the elements of the vector (the sample means) with the variable names (the variable each element is the sample mean of)
+     names(varMeans) <- numVarOptions[numVarOptions %in% colnames(censusTibble)]
+     # Name the elements of the vector (the sample standard deviations) with the variable names (the variable each element is the sample standard deviation of)
+     names(varSDs) <- numVarOptions[numVarOptions %in% colnames(censusTibble)]
   
   # If the user does specify numeric variables
   } else {
     # For each of the numeric variables the user specified
     for (i in numericVariables) {
        # Calculate the mean and add it to the vector of variables means
-       varMeans <- c(varMeans, sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP))
-       # Name the elements of the vector (the means) with the variable names (the variable each element is the mean of)
-       names(varMeans) <- numericVariables
+       varMeans <- c(varMeans, sum(censusTibble[,i]*censusTibble$PWGTP, na.rm = TRUE)/sum(censusTibble$PWGTP, na.rm = TRUE))
        # Calculate the standard deviation and add it to the vector of variable standard deviations
-       varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP)/sum(censusTibble$PWGTP)-sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP)^2))
-       # Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)
-       names(varSDs) <- numericVariables
+       varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP, na.rm = TRUE)/sum(censusTibble$PWGTP, na.rm = TRUE)-sum(censusTibble[,i]*censusTibble$PWGTP, na.rm = TRUE)/sum(censusTibble$PWGTP, na.rm = TRUE)^2))
     }
+    # Name the elements of the vector (the means) with the variable names (the variable each element is the mean of)
+    names(varMeans) <- numericVariables
+    # Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)
+    names(varSDs) <- numericVariables
   }
   
   
@@ -586,11 +586,62 @@ numericVariable <- 'AGEP'
 ```
 
 ### Investigation
-Investigate the census data using the functions created above (API query function and plotting/summarizing functions):
-```{r}
+Investigate the census data using the functions created above (API query function and plotting/summarizing functions)
 
+My PUMS Census API Key
+```{r}
+key <- '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce'
 ```
 
+
+#### Examining travel time to work and rent over time and in relation to age
+
+* First, I'll view the possible values for region to make sure I'm putting a legal value into the ´getPUMSyears()´ function:
+```{r}
+regionValues
+```
+* Then I'll query the PUMS Census API with the ´getPUMS()´ function:
+```{r}
+travelTime <- getPUMSyears(years = c('2021', '2022', '2023', '2024'),  numericVariables = c('AGEP', 'GRPIP', 'JWMNP', 'PWGTP'), geographyLevel = 'REGION', specificGeography = 'South', APIkey = key)
+```
+  + Okay, this query produces an error, so it's probably too large
+  
+* I'll try the same query, but with a division instead of a region
+  + Possible values for division
+```{r}
+divisionValues
+```
+  + Query
+```{r}
+travelTime <- getPUMSyears(years = c('2021', '2022', '2023', '2024'),  numericVariables = c('AGEP', 'GRPIP', 'JWMNP', 'PWGTP'), geographyLevel = 'DIVISION', specificGeography = 'East South Central (South region)', APIkey = key)
+```
+
+* I'll look at a numeric summary of the dataset:
+```{r}
+summary(travelTime)
+```
+
+
+* Now I want to explore my different questions by plotting this dataset
+  + I think it will be interesting to compare how travel time to work varies as we get farther from the onset of the COVID-19 pandemic in the East South Central Division:
+```{r}
+plot(travelTime, numericVariable = 'JWMNP', categoricalVariable = 'YEAR')
+```
+There does not appear to be any difference in median travel time to work between 2021 and 2024. 
+
+  + I will also compare gross rent as a percentage of household income past 12 months with travel time:
+    - Whoops, I forgot this function only does a numeric variable vs. a categorical variable, not two numeric variables. Instead, I'll look at gross rent as a percentage of household income past 12 months vs. year:
+```{r}
+plot(travelTime, numericVariable = 'GRPIP', categoricalVariable = 'YEAR')
+```
+There appears to be no difference in median gross rent as a percentage of household income past 12 months in the different years.
+
+  + And finally, I'll compare percentage of income going to rent with age:
+    - Since this won't work to plot with my summary plotting function either, I'll look at gross rent as a percentage of household income past 12 months vs. sex:
+```{r}
+plot(travelTime, numericVariable = 'GRPIP', categoricalVariable = 'SEX')
+```
+The median gross rent as a percentage of household income past 12 months appears to be slightly higher for women, as is the third quartile.
 
 
 Things to change if time
