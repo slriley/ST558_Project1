@@ -443,12 +443,12 @@ rm(year, numericVariables, categoricalVariables, geographyLevel, specificGeograp
   pumstblOg
 ```
 
-### Write a function to summarize the PUMS data
+### PUMS Data Numeric Summary Function
 
 Write a function to specifically summarize objects of class census:
-The function will produce means and standard deviations for the numeric variable(s) and counts for the categorical variable(s)
+The function will produce sample means and sample standard deviations for the numeric variable(s) and counts for the categorical variable(s)
 ```{r}
-summary.census <- function(censusTibble, numericVariables, categoricalVariables, ...){
+summary.census <- function(censusTibble, numericVariables = NULL, categoricalVariables = NULL, ...){
   
   # Possible numeric variables to summarize
   numVarOptions <- c('AGEP', 'GASP', 'GRPIP', 'JWMNP')
@@ -462,24 +462,25 @@ summary.census <- function(censusTibble, numericVariables, categoricalVariables,
   varCounts <- list()
   
   
-  # Calculate mean and standard deviation
+  # Calculate sample mean and sample standard deviation
   
   # If user does not specify numeric variables
   if (is.null(numericVariables)) {
-    # For each of the numeric variables
+    # For each of the numeric variables in the census object
      for (i in numVarOptions[numVarOptions %in% colnames(censusTibble)]) {
-       # Calculate the mean and add it to the vector of variables means
-       varMeans <- c(varMeans, sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP))
-       # Name the elements of the vector (the means) with the variable names (the variable each element is the mean of)
-       names(varMeans) <- numVarOptions
-       # Calculate the standard deviation and add it to the vector of variable standard deviations
+       # Calculate the sample mean and add it to the vector of variables sample means
+       varMeans <- c(varMeans, (sum(censusTibble[,i]*censusTibble$PWGTP))/(sum(censusTibble$PWGTP)))
+       # Name the elements of the vector (the sample means) with the variable names (the variable each element is the sample mean of)
+       names(varMeans) <- numVarOptions[numVarOptions %in% colnames(censusTibble)]
+       # Calculate the sample standard deviation and add it to the vector of variable sample standard deviations
        varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP)/sum(censusTibble$PWGTP)-sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP)^2))
-       # Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)
-       names(varSDs) <- numVarOptions
+       # Name the elements of the vector (the sample standard deviations) with the variable names (the variable each element is the sample standard deviation of)
+       names(varSDs) <- numVarOptions[numVarOptions %in% colnames(censusTibble)]
      }
   
   # If the user does specify numeric variables
   } else {
+    # For each of the numeric variables the user specified
     for (i in numericVariables) {
        # Calculate the mean and add it to the vector of variables means
        varMeans <- c(varMeans, sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP))
@@ -488,7 +489,7 @@ summary.census <- function(censusTibble, numericVariables, categoricalVariables,
        # Calculate the standard deviation and add it to the vector of variable standard deviations
        varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP)/sum(censusTibble$PWGTP)-sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP)^2))
        # Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)
-       names(varSDs) <- numVarOptions
+       names(varSDs) <- numericVariables
     }
   }
   
@@ -497,15 +498,25 @@ summary.census <- function(censusTibble, numericVariables, categoricalVariables,
   
   # If user does not specify categorical variables
   if (is.null(categoricalVariables)) {
+    # For each of the categorical variables in the census object
     for (i in catVarOptions[catVarOptions %in% colnames(censusTibble)]) {
+      # Create a table of counts for each level of the variable
       countTBL <- as_tibble(table(censusTibble[,i]), .name_repair = 'unique_quiet')
+      # Name the columns with the variable name and n
       colnames(countTBL) <- c(paste(i), 'n')
+      # Add the tibble to the list 'varCounts'
       varCounts <- list(varCounts, countTBL)
     }
+  
+  # If the user does specify categorical variables
   } else {
+    # For each of the categorical variables the user specified
     for (i in categoricalVariables) {
+      # Create a table of counts for each level of the variable
       countTBL <- as_tibble(table(censusTibble[,i]), .name_repair = 'unique_quiet')
+      # Name the columns with the variable name and n
       colnames(countTBL) <- c(paste(i), 'n')
+      # Add the tibble to the list 'varCounts'
       varCounts <- list(varCounts, countTBL)
     }
   }
@@ -525,9 +536,61 @@ summary.census <- function(censusTibble, numericVariables, categoricalVariables,
 
 ```{r}
 # Testing function
+testSum <- summary(testFxn, numericVariables = 'GASP')
+
+
 censusTibble <- testFxn
 numericVariables <- NULL
 ```
+
+### PUMS Data Graphical Summary Function
+
+Write a function to plot objects of class census:
+The function will create a boxplot of the numeric variable at the levels of the categorical variable
+```{r}
+plot.census <- function(censusTibble, numericVariable, categoricalVariable, ...){
+  
+  # Check inputs and return error message if criteria aren't met
+  if (!length(numericVariable) == 1) {
+    stop('Only input one numeric variable.')
+  }
+  if (length(categoricalVariable) > 1) {
+    stop('Only input one categorical variable.')
+  }
+  
+  
+  # Create boxplot with weights on rows
+  censusBoxplot <- ggplot(data = censusTibble, 
+                          aes(x = get(categoricalVariable), 
+                              y = get(numericVariable),
+                              weight = PWGTP,
+                              fill = get(categoricalVariable))) +
+    geom_boxplot() +
+    labs(x = categoricalVariable,
+         y = numericVariable,
+         fill = categoricalVariable) +
+    theme_bw()
+  
+  
+  # Return the plot
+  return(censusBoxplot)
+}
+```
+
+```{r}
+# Test function
+plot(testFxn, numericVariable = 'AGEP', categoricalVariable = 'YEAR')
+
+
+numericVariable <- 'AGEP'
+```
+
+### Investigation
+Investigate the census data using the functions created above (API query function and plotting/summarizing functions):
+```{r}
+
+```
+
 
 
 Things to change if time
@@ -536,3 +599,4 @@ Change state/region/division to the value instead of a number
 Clean up stop statements like saying must be only one of these variables
 Capitalize state/division/region in final tibble output
 First variable in count list is ending up in the wrong level
+Error in plot.census(testFxn) : argument "numericVariable" is missing, with no default
