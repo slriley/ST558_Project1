@@ -381,12 +381,25 @@ getPUMS <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), catego
 
 Write a wrapper function allowing the user to query multiple years of PUMS Census API data using the single-year function created above:
 ```{r}
-getPUMSyears <- function(year = '2024', numericVariables = c('AGEP', 'PWGTP'), categoricalVariables = c('SEX'), geographyLevel = 'STATE', specificGeography = NULL, APIkey, ...) {
+getPUMSyears <- function(years = '2024', numericVariables = c('AGEP', 'PWGTP'), categoricalVariables = c('SEX'), geographyLevel = 'STATE', specificGeography = NULL, APIkey, ...) {
+  
+  # Set up an empty tibble to add data to
+  yearsTBL <- tibble()
   
   # Use the getPUMS() function to query the PUMS Census API for each year the user specified in the getPUMSyears() function input
-  for (i in year) {
+  for (year in years) {
+    outputTBL <- getPUMS(year = year, numericVariables = numericVariables, categoricalVariables = categoricalVariables, geographyLevel = geographyLevel, specificGeography = specificGeography, APIkey = APIkey, ...)
     
+    # Add a column with year as the value
+    outputTBL <- outputTBL |>
+      mutate(YEAR = rep(year, nrow(outputTBL)))
+    
+    # Add the data to 'yearsTBL'
+    yearsTBL <- rbind(yearsTBL, outputTBL)
   }
+  
+  # Return the tibble with data from all requested years
+  return(yearsTBL)
 }
 ```
 
@@ -397,7 +410,12 @@ To Test:
 
 ```{r}
 # All defaults except API key
-testFxn <- getPUMS(geographyLevel = 'STATE', specificGeography = 'All', APIkey = '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+testFxn <- getPUMS(year = '2023', geographyLevel = 'STATE', specificGeography = 'Idaho/ID', APIkey = '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce')
+
+# 19884 obs, 20447 obs
+
+testFxn <- getPUMSyears(years = c('2022', '2023'), geographyLevel = 'STATE', specificGeography = 'Idaho/ID', APIkey = '533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce') # 40331 obs
+
 ```
 
 ```{r}
@@ -425,9 +443,96 @@ rm(year, numericVariables, categoricalVariables, geographyLevel, specificGeograp
   pumstblOg
 ```
 
+### Write a function to summarize the PUMS data
+
+Write a function to specifically summarize objects of class census:
+The function will produce means and standard deviations for the numeric variable(s) and counts for the categorical variable(s)
+```{r}
+summary.census <- function(censusTibble, numericVariables, categoricalVariables, ...){
+  
+  # Possible numeric variables to summarize
+  numVarOptions <- c('AGEP', 'GASP', 'GRPIP', 'JWMNP')
+  # Possible categorical variables to summarize
+  catVarOptions <- c('FER', 'HHL', 'SCH', 'SCHL', 'SEX', 'YEAR')
+  
+  
+  # Pre-allocate vectors for summaries
+  varMeans <- c()
+  varSDs <- c()
+  varCounts <- list()
+  
+  
+  # Calculate mean and standard deviation
+  
+  # If user does not specify numeric variables
+  if (is.null(numericVariables)) {
+    # For each of the numeric variables
+     for (i in numVarOptions[numVarOptions %in% colnames(censusTibble)]) {
+       # Calculate the mean and add it to the vector of variables means
+       varMeans <- c(varMeans, sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP))
+       # Name the elements of the vector (the means) with the variable names (the variable each element is the mean of)
+       names(varMeans) <- numVarOptions
+       # Calculate the standard deviation and add it to the vector of variable standard deviations
+       varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP)/sum(censusTibble$PWGTP)-sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP)^2))
+       # Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)
+       names(varSDs) <- numVarOptions
+     }
+  
+  # If the user does specify numeric variables
+  } else {
+    for (i in numericVariables) {
+       # Calculate the mean and add it to the vector of variables means
+       varMeans <- c(varMeans, sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP))
+       # Name the elements of the vector (the means) with the variable names (the variable each element is the mean of)
+       names(varMeans) <- numericVariables
+       # Calculate the standard deviation and add it to the vector of variable standard deviations
+       varSDs <- c(varSDs, sqrt(sum(censusTibble[,i]^2*censusTibble$PWGTP)/sum(censusTibble$PWGTP)-sum(censusTibble[,i]*censusTibble$PWGTP)/sum(censusTibble$PWGTP)^2))
+       # Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)
+       names(varSDs) <- numVarOptions
+    }
+  }
+  
+  
+  # Calculate counts
+  
+  # If user does not specify categorical variables
+  if (is.null(categoricalVariables)) {
+    for (i in catVarOptions[catVarOptions %in% colnames(censusTibble)]) {
+      countTBL <- as_tibble(table(censusTibble[,i]), .name_repair = 'unique_quiet')
+      colnames(countTBL) <- c(paste(i), 'n')
+      varCounts <- list(varCounts, countTBL)
+    }
+  } else {
+    for (i in categoricalVariables) {
+      countTBL <- as_tibble(table(censusTibble[,i]), .name_repair = 'unique_quiet')
+      colnames(countTBL) <- c(paste(i), 'n')
+      varCounts <- list(varCounts, countTBL)
+    }
+  }
+  
+  
+  # Combine summaries in a list
+  censusSummary <- list(means = varMeans,
+                        stdevs = varSDs,
+                        counts = varCounts)
+  
+  
+  # Return the summaries
+  return(censusSummary)
+  
+}
+```
+
+```{r}
+# Testing function
+censusTibble <- testFxn
+numericVariables <- NULL
+```
 
 
 Things to change if time
 Allow state input to just be state name or abbreviation instead of both
 Change state/region/division to the value instead of a number
 Clean up stop statements like saying must be only one of these variables
+Capitalize state/division/region in final tibble output
+First variable in count list is ending up in the wrong level
