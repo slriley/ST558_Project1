@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Riley_Project1</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d0cfe7a3482e0d49a74229a8f3b76718.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Riley_Project1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="project-description" class="level2">
+<h2 class="anchored" data-anchor-id="project-description">Project Description</h2>
+<p>This project will manipulate and process data sets from a census API and then summarize and plot returned data, mainly using custom functions.<br>
+</p>
+</section>
+<section id="author-information" class="level2">
+<h2 class="anchored" data-anchor-id="author-information">Author Information</h2>
+<p>Author: Shannon Riley<br>
+Organization: NCSU ST 558<br>
+Date: Fall 2026 (Completed 10/3/2026)<br>
+</p>
+</section>
+<section id="function-development" class="level2">
+<h2 class="anchored" data-anchor-id="function-development">Function Development</h2>
+<p>This project will utilize the Public Use Microdata Sample (PUMS) Census API. We will consider the years 2021-2024 for the basic 1-Year Estimates (will not include Puerto Rico).</p>
+<section id="acs-1-year-public-use-microdata-sample-variables" class="level3">
+<h3 class="anchored" data-anchor-id="acs-1-year-public-use-microdata-sample-variables">ACS 1-Year Public Use Microdata Sample Variables</h3>
+<ul>
+<li>First, the JSON files with the variable descriptions for each year (2021-2024) will be downloaded. We only want to parse the following subset of variables:
+<ul>
+<li>AGEP - Age</li>
+<li>GASP - Gas cost (monthly cost, use ADJHSG to adjust GASP to constant dollars)</li>
+<li>GRPIP - Gross rent as a percentage of household income past 12 months</li>
+<li>JWAP - Time of arrival at work (hour and minute)</li>
+<li>JWDP - Time of departure for work (hour and minute)</li>
+<li>JWMNP - Travel time to work</li>
+<li>PWGTP - PUMS person weight</li>
+<li>FER - Gave birth to child within the past 12 months</li>
+<li>HHL - Household language</li>
+<li>SCH - School enrollment</li>
+<li>SCHL - Educational attainment</li>
+<li>SEX - Sex</li>
+<li>ST (for 2021, 2022)/STATE (for 2023, 2024) - State Code based on 2020 Census definitions</li>
+<li>REGION - Region code based on 2020 Census definitions</li>
+<li>DIVISION - Division code based on 2020 Census definitions</li>
+</ul></li>
+</ul>
+<p>To avoid repetitive code, write a function to pull each year’s variable and their values and put them in a list, then save the all the lists to an <em>.rds</em> file:<br>
+<br>
+First, create a vector the years we’re interested in:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'2021'</span>, <span class="st">'2022'</span>, <span class="st">'2023'</span>, <span class="st">'2024'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Next, create two vectors of the desired variables, since the “state” variable is named differently in different years:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>subVar2122 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'GASP'</span>, <span class="st">'GRPIP'</span>, <span class="st">'JWAP'</span>, <span class="st">'JWDP'</span>, <span class="st">'JWMNP'</span>, <span class="st">'PWGTP'</span>, <span class="st">'FER'</span>, <span class="st">'HHL'</span>, <span class="st">'SCH'</span>, <span class="st">'SCHL'</span>, <span class="st">'SEX'</span>, <span class="st">'ST'</span>, <span class="st">'REGION'</span>, <span class="st">'DIVISION'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>subVar2324 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'GASP'</span>, <span class="st">'GRPIP'</span>, <span class="st">'JWAP'</span>, <span class="st">'JWDP'</span>, <span class="st">'JWMNP'</span>, <span class="st">'PWGTP'</span>, <span class="st">'FER'</span>, <span class="st">'HHL'</span>, <span class="st">'SCH'</span>, <span class="st">'SCHL'</span>, <span class="st">'SEX'</span>, <span class="st">'STATE'</span>, <span class="st">'REGION'</span>, <span class="st">'DIVISION'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, write a function to access the JSON, parse the data, and pull out the desired variables and their values for a given year:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>getVarVal <span class="ot">&lt;-</span> <span class="cf">function</span>(year) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download the JSON</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  getURL <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="fu">paste0</span>(<span class="st">'https://api.census.gov/data/'</span>, year, <span class="st">'/acs/acs1/pums/variables.json'</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse the JSON</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  jsonParse <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(getURL<span class="sc">$</span>content))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create an empty list for the variables and their values to go in</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  subVarLs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check what the value of year is and use the first for loop if it is 2021 or 2022 and the second for loop if it is 2023 or 2024</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (year <span class="sc">==</span> <span class="st">'2021'</span> <span class="sc">|</span> year <span class="sc">==</span> <span class="st">'2022'</span>) {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through each value in the subset of variables vector</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> subVar2122) {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Pull the variable and its values out of the large list and put them in a list</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      subVarLs <span class="ot">&lt;-</span> <span class="fu">c</span>(subVarLs, jsonParse[[<span class="st">"variables"</span>]][i])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> subVar2324) {</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      subVarLs <span class="ot">&lt;-</span> <span class="fu">c</span>(subVarLs, jsonParse[[<span class="st">"variables"</span>]][i])</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the list with the variables and their values</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(subVarLs)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run this function on each value in the vector of years:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (year <span class="cf">in</span> years) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign</span>(<span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">'varList'</span>, year), <span class="at">value =</span> <span class="fu">getVarVal</span>(year))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now save all four year lists to an .rds file:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="fu">list</span>(<span class="at">varList2021 =</span> varList2021, <span class="at">varList2022 =</span> varList2022, <span class="at">varList2023 =</span> varList2023, <span class="at">varList2024 =</span> varList2024), <span class="at">file =</span> <span class="st">'data/varLists.rds'</span>, <span class="at">compress =</span> <span class="st">'none'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="write-functions-allowing-users-to-easily-query-the-pums-census-api" class="level3">
+<h3 class="anchored" data-anchor-id="write-functions-allowing-users-to-easily-query-the-pums-census-api">Write functions allowing users to easily query the PUMS Census API</h3>
+<p>Create vectors of allowable values for the <em>specificGeography</em> argument in the <code>getPUMS()</code> function for user to reference if necessary:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in .rds file with lists of variables and their values for each year</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>varLists <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">'data/varLists.rds'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>regionValues   <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(<span class="fu">c</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>REGION<span class="sc">$</span>values)))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>divisionValues <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(<span class="fu">c</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>DIVISION<span class="sc">$</span>values)))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>stateValues    <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(<span class="fu">c</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>ST<span class="sc">$</span>values)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Write a function to query the PUM Census API and output a cleanly formatted tibble (a single year of data):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>getPUMS <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">year =</span> <span class="st">'2024'</span>, <span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'PWGTP'</span>), <span class="at">categoricalVariables =</span> <span class="fu">c</span>(<span class="st">'SEX'</span>), <span class="at">geographyLevel =</span> <span class="st">'STATE'</span>, <span class="at">specificGeography =</span> <span class="cn">NULL</span>, APIkey, ...) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Read in .rds file with lists of variables and their values for each year</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  varLists <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">'data/varLists.rds'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Vectors to check inputs against</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  allowNumVar   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'PWGTP'</span>, <span class="st">'AGEP'</span>, <span class="st">'GASP'</span>, <span class="st">'GRPIP'</span>, <span class="st">'JWAP'</span>, <span class="st">'JWDP'</span>, <span class="st">'JWMNP'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  allowCatVar   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'FER'</span>, <span class="st">'HHL'</span>, <span class="st">'SCH'</span>, <span class="st">'SCHL'</span>, <span class="st">'SEX'</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  allowGeoLev   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'REGION'</span>, <span class="st">'DIVISION'</span>, <span class="st">'STATE'</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  allowRegion   <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(<span class="fu">c</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>REGION<span class="sc">$</span>values)))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  allowDivision <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(<span class="fu">c</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>DIVISION<span class="sc">$</span>values)))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  allowState    <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">unlist</span>(<span class="fu">c</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>ST<span class="sc">$</span>values)))</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a correctly formatted data frame of JWAP values to parse the JWAP</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># variable if the user requests it</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'JWAP'</span> <span class="sc">%in%</span> numericVariables) {</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pull out the named values possible for the JWAP variable and convert them</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to a one-column data frame</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    jwapValues <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">data.frame</span>(varLists<span class="sc">$</span>varList2024<span class="sc">$</span>JWAP<span class="sc">$</span>values<span class="sc">$</span>item))</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Move the names of the values into a column</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    jwapValues <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">item =</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(varLists<span class="sc">$</span>varList2024<span class="sc">$</span>JWAP<span class="sc">$</span>values<span class="sc">$</span>item)), </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                             <span class="at">value =</span> jwapValues, </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>                             <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove the observation for NA values</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    jwapValues <span class="ot">&lt;-</span> <span class="fu">subset</span>(jwapValues, item <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Split the value column into two columns in order to calculate the midpoint</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># of the time period</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    jwapValues <span class="ot">&lt;-</span> <span class="fu">separate_wider_delim</span>(jwapValues, </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">cols =</span> <span class="st">'value'</span>, </span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">delim =</span> <span class="st">' to '</span>,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">'bRange'</span>, <span class="st">'eRange'</span>))</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># class</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    jwapValues<span class="sc">$</span>bRange <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(jwapValues<span class="sc">$</span>bRange, <span class="fu">c</span>(<span class="st">'a.m.'</span> <span class="ot">=</span> <span class="st">'AM'</span>,</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>                                                              <span class="st">'p.m.'</span> <span class="ot">=</span> <span class="st">'PM'</span>))</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    jwapValues<span class="sc">$</span>eRange <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(jwapValues<span class="sc">$</span>eRange, <span class="fu">c</span>(<span class="st">'a.m.'</span> <span class="ot">=</span> <span class="st">'AM'</span>,</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>                                                              <span class="st">'p.m.'</span> <span class="ot">=</span> <span class="st">'PM'</span>))</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert the 'bRange' and 'eRange' variables into time objects</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    jwapValues<span class="sc">$</span>bRange <span class="ot">&lt;-</span> <span class="fu">parse_date_time</span>(jwapValues<span class="sc">$</span>bRange, <span class="st">'%I:%M %p'</span>)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>    jwapValues<span class="sc">$</span>eRange <span class="ot">&lt;-</span> <span class="fu">parse_date_time</span>(jwapValues<span class="sc">$</span>eRange, <span class="st">'%I:%M %p'</span>)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate the middle of each time period</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    jwapValues<span class="sc">$</span>midpoint <span class="ot">&lt;-</span> <span class="fu">as_hms</span>(jwapValues<span class="sc">$</span>bRange <span class="sc">+</span> ((jwapValues<span class="sc">$</span>eRange <span class="sc">-</span> jwapValues<span class="sc">$</span>bRange)<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a value for missing time values back in (to correspond with the </span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># original value "N/A (not a worker; worker who worked from home)")</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    jwapValues <span class="ot">&lt;-</span> <span class="fu">rbind</span>(jwapValues, <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --  </span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a correctly formatted data frame of JWDP values to parse the JWDP</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># variable if the user requests it</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'JWDP'</span> <span class="sc">%in%</span> numericVariables) {</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pull out the named values possible for the JWDP variable and convert them </span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to a one-column data frame</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    jwdpValues <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">data.frame</span>(varLists<span class="sc">$</span>varList2024<span class="sc">$</span>JWDP<span class="sc">$</span>values<span class="sc">$</span>item))</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Move the names of the values into a column</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    jwdpValues <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">item =</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(varLists<span class="sc">$</span>varList2024<span class="sc">$</span>JWDP<span class="sc">$</span>values<span class="sc">$</span>item)), </span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>                             <span class="at">value =</span> jwdpValues, </span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>                             <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove the observation for NA values</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    jwdpValues <span class="ot">&lt;-</span> <span class="fu">subset</span>(jwdpValues, item <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Split the value column into two columns in order to calculate the midpoint</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>    <span class="co"># of the time period</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    jwdpValues <span class="ot">&lt;-</span> <span class="fu">separate_wider_delim</span>(jwdpValues, </span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">cols =</span> <span class="st">'value'</span>, </span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">delim =</span> <span class="st">' to '</span>,</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">'bRange'</span>, <span class="st">'eRange'</span>))</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Replace 'a.m.' and 'p.m.' with 'AM' and 'PM' for easier parsing to time</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># class</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>    jwdpValues<span class="sc">$</span>bRange <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(jwdpValues<span class="sc">$</span>bRange, <span class="fu">c</span>(<span class="st">'a.m.'</span> <span class="ot">=</span> <span class="st">'AM'</span>,</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>                                                              <span class="st">'p.m.'</span> <span class="ot">=</span> <span class="st">'PM'</span>))</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>    jwdpValues<span class="sc">$</span>eRange <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(jwdpValues<span class="sc">$</span>eRange, <span class="fu">c</span>(<span class="st">'a.m.'</span> <span class="ot">=</span> <span class="st">'AM'</span>,</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>                                                              <span class="st">'p.m.'</span> <span class="ot">=</span> <span class="st">'PM'</span>))</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert the 'bRange' and 'eRange' variables into time objects</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>    jwdpValues<span class="sc">$</span>bRange <span class="ot">&lt;-</span> <span class="fu">parse_date_time</span>(jwdpValues<span class="sc">$</span>bRange, <span class="st">'%I:%M %p'</span>)</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>    jwdpValues<span class="sc">$</span>eRange <span class="ot">&lt;-</span> <span class="fu">parse_date_time</span>(jwdpValues<span class="sc">$</span>eRange, <span class="st">'%I:%M %p'</span>)</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Calculate the middle of each time period </span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>    jwdpValues<span class="sc">$</span>midpoint <span class="ot">&lt;-</span> <span class="fu">as_hms</span>(jwdpValues<span class="sc">$</span>bRange <span class="sc">+</span> ((jwdpValues<span class="sc">$</span>eRange <span class="sc">-</span> jwdpValues<span class="sc">$</span>bRange)<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a value for missing time values back in (to correspond with the </span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>    <span class="co"># original value "N/A (not a worker; worker who worked from home)")</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>    jwdpValues <span class="ot">&lt;-</span> <span class="fu">rbind</span>(jwdpValues, <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a vector of educational attainment values to parse the SCHL variable</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if the user requests it</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'SCHL'</span> <span class="sc">%in%</span> categoricalVariables) {</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>    schlLevels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(varLists<span class="sc">$</span>varList2024[[<span class="st">"SCHL"</span>]][[<span class="st">"values"</span>]][[<span class="st">"item"</span>]]))</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>    schlLabels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">unname</span>(<span class="fu">unlist</span>(varLists<span class="sc">$</span>varList2024[[<span class="st">"SCHL"</span>]][[<span class="st">"values"</span>]][[<span class="st">"item"</span>]])))</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Specify default values for 'specificGeography' if user leaves argument NULL</span></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(specificGeography) <span class="sc">&amp;</span> geographyLevel <span class="sc">==</span> <span class="st">'REGION'</span>) {</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>    specificGeography <span class="ot">&lt;-</span> <span class="st">'West'</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.null</span>(specificGeography) <span class="sc">&amp;</span> geographyLevel <span class="sc">==</span> <span class="st">'DIVISION'</span>) {</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>    specificGeography <span class="ot">&lt;-</span> <span class="st">'Pacific (West region)'</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.null</span>(specificGeography) <span class="sc">&amp;</span> geographyLevel <span class="sc">==</span> <span class="st">'STATE'</span>) {</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>    specificGeography <span class="ot">&lt;-</span> <span class="st">'Oregon/OR'</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check inputs and return error message if criteria aren't met:</span></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>  <span class="co"># year</span></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(year) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> <span class="sc">!</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'2021'</span>, <span class="st">'2022'</span>, <span class="st">'2023'</span>, <span class="st">'2024'</span>))) {</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'"year" must be a single year between 2021 and 2024, input as a character string.'</span>)</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>  <span class="co"># numericVariables</span></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(numericVariables) <span class="sc">&lt;</span> <span class="dv">2</span> <span class="sc">|</span> <span class="sc">!</span>(<span class="st">'PWGTP'</span> <span class="sc">%in%</span> numericVariables)) {</span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'"numericVariables" must be a vector containing PWGTP and at least one of the only following variables: AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP.'</span>)</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(numericVariables)) {</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span>(numericVariables[i] <span class="sc">%in%</span> allowNumVar)) {</span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">'"numericVariables" must be a vector containing PWGTP and at least one of only the following variables: AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP.'</span>)</span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>  <span class="co"># categoricalVariables</span></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(categoricalVariables) <span class="sc">&lt;</span> <span class="dv">1</span>) {</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'"categoricalVariables" must be a vector containing at least one of only the following variables: FER, HHL, SCH, SCHL, and SEX.'</span>)</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(categoricalVariables)) {</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span>(categoricalVariables[i] <span class="sc">%in%</span> allowCatVar)) {</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">'"categoricalVariables" must be a vector containing at least one of only the following variables: FER, HHL, SCH, SCHL, and SEX.'</span>)</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geographyLevel</span></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(geographyLevel) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> <span class="sc">!</span>(geographyLevel <span class="sc">%in%</span> allowGeoLev)) {</span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'"geographyLevel" must be only one of the following variables: REGION, DIVISION, or STATE.'</span>)</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>  <span class="co"># specificGeography</span></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(geographyLevel <span class="sc">==</span> <span class="st">'REGION'</span> <span class="sc">&amp;</span> <span class="sc">!</span>(specificGeography <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'ALL'</span>, <span class="st">'all'</span>, <span class="st">'All'</span>, allowRegion)) <span class="sc">|</span> geographyLevel <span class="sc">==</span> <span class="st">'DIVISION'</span> <span class="sc">&amp;</span> <span class="sc">!</span>(specificGeography <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'ALL'</span>, <span class="st">'all'</span>, <span class="st">'All'</span>, allowDivision)) <span class="sc">|</span> geographyLevel <span class="sc">==</span> <span class="st">'STATE'</span> <span class="sc">&amp;</span> <span class="sc">!</span>(specificGeography <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'ALL'</span>, <span class="st">'all'</span>, <span class="st">'All'</span>, allowState))) {</span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">'"specificGeography" must be ALL or one of the allowable values associated with the specified value of geographyLevel. See vectors regionValues, divisionValues, and stateValues for allowable values for specificGeography.'</span>)</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>  <span class="co"># APIkey</span></span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.character</span>(APIkey)) {</span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'"APIkey" must be character string.'</span>)</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get numeric values corresponding to specificGeography inputs to paste into</span></span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>  <span class="co"># URL so that the user can put in a 'expected' value rather than a number</span></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (geographyLevel <span class="sc">==</span> <span class="st">'REGION'</span>) {</span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>    specificGeographyNum <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">which</span>(<span class="fu">unlist</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>REGION<span class="sc">$</span>values<span class="sc">$</span>item) <span class="sc">==</span> specificGeography))</span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (geographyLevel <span class="sc">==</span> <span class="st">'DIVISION'</span>) {</span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a>    specificGeographyNum <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">which</span>(<span class="fu">unlist</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>DIVISION<span class="sc">$</span>values<span class="sc">$</span>item) <span class="sc">==</span> specificGeography))</span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (geographyLevel <span class="sc">==</span> <span class="st">'STATE'</span>) {</span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>    specificGeographyNum <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">which</span>(<span class="fu">unlist</span>(varLists<span class="sc">$</span>varList2021<span class="sc">$</span>ST<span class="sc">$</span>values<span class="sc">$</span>item) <span class="sc">==</span> specificGeography))</span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get data from API</span></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (specificGeography <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'ALL'</span>, <span class="st">'all'</span>, <span class="st">'All'</span>)) {</span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a>    pums <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="fu">paste0</span>(<span class="st">'https://api.census.gov/data/'</span>, year, <span class="st">'/acs/acs1/pums?get='</span>, <span class="fu">paste</span>(numericVariables, <span class="at">collapse =</span> <span class="st">','</span>), <span class="st">','</span>, <span class="fu">paste</span>(categoricalVariables, <span class="at">collapse =</span> <span class="st">','</span>), <span class="st">'&amp;for='</span>, geographyLevel, <span class="st">':*&amp;key='</span>, APIkey))</span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a>    pums <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="fu">paste0</span>(<span class="st">'https://api.census.gov/data/'</span>, year, <span class="st">'/acs/acs1/pums?get='</span>, <span class="fu">paste</span>(numericVariables, <span class="at">collapse =</span> <span class="st">','</span>), <span class="st">','</span>, <span class="fu">paste</span>(categoricalVariables, <span class="at">collapse =</span> <span class="st">','</span>), <span class="st">'&amp;for='</span>, geographyLevel, <span class="st">':'</span>, specificGeographyNum, <span class="st">'&amp;key='</span>, APIkey))</span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pull out the data and convert it to a tibble</span></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>  pumstbl           <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(pums<span class="sc">$</span>content)),</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">.name_repair =</span> <span class="st">'unique_quiet'</span>)</span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(pumstbl) <span class="ot">&lt;-</span> <span class="fu">c</span>(pumstbl[<span class="dv">1</span>,])</span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a>  pumstbl           <span class="ot">&lt;-</span> <span class="fu">slice</span>(pumstbl, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a>  pumstbl</span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert variables to the correct type:</span></span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Numeric (PWGTP, AGEP, GASP, GRPIP, JWAP, JWDP, and JWMNP)</span></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(pumstbl)) {</span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">colnames</span>(pumstbl)[i] <span class="sc">%in%</span> allowNumVar) {</span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a>      pumstbl[,i] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pumstbl[,i])) </span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Time - replace the numeric code value with the time (JWAP, JWDP)</span></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'JWAP'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">JWAP =</span> <span class="fu">recode_values</span>(JWAP, </span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">from =</span> jwapValues<span class="sc">$</span>item, </span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">to =</span> jwapValues<span class="sc">$</span>midpoint))</span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'JWDP'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">JWDP =</span> <span class="fu">recode_values</span>(JWDP, </span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">from =</span> jwdpValues<span class="sc">$</span>item, </span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">to =</span> jwdpValues<span class="sc">$</span>midpoint))</span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Categorical - convert to factor (FER, HHL, SCH, SCHL, and SEX)</span></span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'FER'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">FER =</span> <span class="fu">factor</span>(FER, </span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'0'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>), </span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'N/A (less than 15 years/greater than 50 years/ male)'</span>, <span class="st">'Yes'</span>, <span class="st">'No'</span>)))</span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'HHL'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">HHL =</span> <span class="fu">factor</span>(HHL, </span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'0'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>, <span class="st">'3'</span>, <span class="st">'4'</span>, <span class="st">'5'</span>), </span>
+<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'N/A (GQ/vacant)'</span>, <span class="st">'English Only'</span>, <span class="st">'Spanish'</span>, <span class="st">'Other Indo-European languages'</span>, <span class="st">'Asian and Pacific Island languages'</span>, <span class="st">'Other Language'</span>)))</span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'SCH'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">SCH =</span> <span class="fu">factor</span>(SCH, </span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'0'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>, <span class="st">'3'</span>), </span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'N/A (less than 3 years old)'</span>, <span class="st">'No, has not attended in the last 3 months'</span>, <span class="st">'Yes, public school or public college'</span>, <span class="st">'Yes, private school or college or home school'</span>)))</span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'SCHL'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">SCHL =</span> <span class="fu">factor</span>(SCHL, </span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(schlLevels), </span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(schlLabels)))</span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'SEX'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a>    pumstbl <span class="ot">&lt;-</span> pumstbl <span class="sc">|&gt;</span></span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">SEX =</span> <span class="fu">factor</span>(SEX, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'2'</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'Male'</span>, <span class="st">'Female'</span>)))</span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace numbers indicating NA with NA in the numeric variables, if they have an NA value (GASP, GRPIP, and JWMNP)</span></span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'GASP'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>    pumstbl<span class="sc">$</span>GASP[pumstbl<span class="sc">$</span>GASP <span class="sc">==</span> <span class="dv">3</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'GRPIP'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>    pumstbl<span class="sc">$</span>GRPIP[pumstbl<span class="sc">$</span>GRPIP <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'JWMNP'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    pumstbl<span class="sc">$</span>JWMNP[pumstbl<span class="sc">$</span>JWMNP <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rename geography level variable to be all caps (by making all variable names uppercase)</span></span>
+<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(pumstbl) <span class="ot">&lt;-</span> <span class="fu">toupper</span>(<span class="fu">colnames</span>(pumstbl))</span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Change numeric value in geography column to the name of the geography</span></span>
+<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'REGION'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(pumstbl)) {</span>
+<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a>      pumstbl<span class="sc">$</span>REGION[i] <span class="ot">&lt;-</span> varLists<span class="sc">$</span>varList2021<span class="sc">$</span>REGION<span class="sc">$</span>values<span class="sc">$</span>item[[pumstbl<span class="sc">$</span>REGION[i]]]</span>
+<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'DIVISION'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(pumstbl)) {</span>
+<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a>      pumstbl<span class="sc">$</span>DIVISION[i] <span class="ot">&lt;-</span> varLists<span class="sc">$</span>varList2021<span class="sc">$</span>DIVISION<span class="sc">$</span>values<span class="sc">$</span>item[[pumstbl<span class="sc">$</span>DIVISION[i]]]</span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="st">'STATE'</span> <span class="sc">%in%</span> <span class="fu">colnames</span>(pumstbl)) {</span>
+<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(pumstbl)) {</span>
+<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a>      pumstbl<span class="sc">$</span>STATE[i] <span class="ot">&lt;-</span> varLists<span class="sc">$</span>varList2021<span class="sc">$</span>ST<span class="sc">$</span>values<span class="sc">$</span>item[[pumstbl<span class="sc">$</span>STATE[i]]]</span>
+<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Change class of tibble</span></span>
+<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>(pumstbl) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'census'</span>, <span class="fu">class</span>(pumstbl))</span>
+<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return data</span></span>
+<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pumstbl)</span>
+<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Write a wrapper function allowing the user to query multiple years of PUMS Census API data using the single-year function created above:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>getPUMSyears <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">years =</span> <span class="st">'2024'</span>, <span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'PWGTP'</span>), <span class="at">categoricalVariables =</span> <span class="fu">c</span>(<span class="st">'SEX'</span>), <span class="at">geographyLevel =</span> <span class="st">'STATE'</span>, <span class="at">specificGeography =</span> <span class="cn">NULL</span>, APIkey, ...) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set up an empty tibble to add data to</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  yearsTBL <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use the getPUMS() function to query the PUMS Census API for each year the user specified in the getPUMSyears() function input</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (year <span class="cf">in</span> years) {</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    outputTBL <span class="ot">&lt;-</span> <span class="fu">getPUMS</span>(<span class="at">year =</span> year, <span class="at">numericVariables =</span> numericVariables, <span class="at">categoricalVariables =</span> categoricalVariables, <span class="at">geographyLevel =</span> geographyLevel, <span class="at">specificGeography =</span> specificGeography, <span class="at">APIkey =</span> APIkey, ...)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a column with year as the value</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    outputTBL <span class="ot">&lt;-</span> outputTBL <span class="sc">|&gt;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">YEAR =</span> <span class="fu">rep</span>(year, <span class="fu">nrow</span>(outputTBL)))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the data to 'yearsTBL'</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    yearsTBL <span class="ot">&lt;-</span> <span class="fu">rbind</span>(yearsTBL, outputTBL)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the tibble with data from all requested years</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(yearsTBL)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pums-data-numeric-summary-function" class="level3">
+<h3 class="anchored" data-anchor-id="pums-data-numeric-summary-function">PUMS Data Numeric Summary Function</h3>
+<p>Write a function to specifically summarize objects of class census:<br>
+The function will produce sample means and sample standard deviations for the numeric variable(s) and counts for the categorical variable(s)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>summary.census <span class="ot">&lt;-</span> <span class="cf">function</span>(censusTibble, <span class="at">numericVariables =</span> <span class="cn">NULL</span>, <span class="at">categoricalVariables =</span> <span class="cn">NULL</span>, ...){</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Possible numeric variables to summarize</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  numVarOptions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'GASP'</span>, <span class="st">'GRPIP'</span>, <span class="st">'JWMNP'</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Possible categorical variables to summarize</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  catVarOptions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'FER'</span>, <span class="st">'HHL'</span>, <span class="st">'SCH'</span>, <span class="st">'SCHL'</span>, <span class="st">'SEX'</span>, <span class="st">'YEAR'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pre-allocate vectors for summaries</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  varMeans <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  varSDs <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  varCounts <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate sample mean and sample standard deviation:</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If user does not specify numeric variables</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(numericVariables)) {</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>     <span class="co"># For each of the numeric variables in the census object</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span> (i <span class="cf">in</span> numVarOptions[numVarOptions <span class="sc">%in%</span> <span class="fu">colnames</span>(censusTibble)]) {</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Calculate the sample mean and add it to the vector of variables sample means</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>       varMeans <span class="ot">&lt;-</span> <span class="fu">c</span>(varMeans, (<span class="fu">sum</span>(censusTibble[,i]<span class="sc">*</span>censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))<span class="sc">/</span>(<span class="fu">sum</span>(censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Calculate the sample standard deviation and add it to the vector of variable sample standard deviations</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>       varSDs <span class="ot">&lt;-</span> <span class="fu">c</span>(varSDs, <span class="fu">sqrt</span>(<span class="fu">sum</span>(censusTibble[,i]<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">sum</span>(censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">-</span><span class="fu">sum</span>(censusTibble[,i]<span class="sc">*</span>censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">sum</span>(censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>     <span class="co"># Name the elements of the vector (the sample means) with the variable names (the variable each element is the sample mean of)</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>     <span class="fu">names</span>(varMeans) <span class="ot">&lt;-</span> numVarOptions[numVarOptions <span class="sc">%in%</span> <span class="fu">colnames</span>(censusTibble)]</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>     <span class="co"># Name the elements of the vector (the sample standard deviations) with the variable names (the variable each element is the sample standard deviation of)</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>     <span class="fu">names</span>(varSDs) <span class="ot">&lt;-</span> numVarOptions[numVarOptions <span class="sc">%in%</span> <span class="fu">colnames</span>(censusTibble)]</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the user does specify numeric variables</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each of the numeric variables the user specified</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> numericVariables) {</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Calculate the mean and add it to the vector of variables means</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>       varMeans <span class="ot">&lt;-</span> <span class="fu">c</span>(varMeans, <span class="fu">sum</span>(censusTibble[,i]<span class="sc">*</span>censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">sum</span>(censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Calculate the standard deviation and add it to the vector of variable standard deviations</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>       varSDs <span class="ot">&lt;-</span> <span class="fu">c</span>(varSDs, <span class="fu">sqrt</span>(<span class="fu">sum</span>(censusTibble[,i]<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">sum</span>(censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">-</span><span class="fu">sum</span>(censusTibble[,i]<span class="sc">*</span>censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="fu">sum</span>(censusTibble<span class="sc">$</span>PWGTP, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Name the elements of the vector (the means) with the variable names (the variable each element is the mean of)</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(varMeans) <span class="ot">&lt;-</span> numericVariables</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Name the elements of the vector (the standard deviations) with the variable names (the variable each element is the standard deviation of)</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(varSDs) <span class="ot">&lt;-</span> numericVariables</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate counts:</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If user does not specify categorical variables</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(categoricalVariables)) {</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each of the categorical variables in the census object</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> catVarOptions[catVarOptions <span class="sc">%in%</span> <span class="fu">colnames</span>(censusTibble)]) {</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Create a table of counts for each level of the variable</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>      countTBL <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">table</span>(censusTibble[,i]), <span class="at">.name_repair =</span> <span class="st">'unique_quiet'</span>)</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Name the columns with the variable name and n</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>      <span class="fu">colnames</span>(countTBL) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste</span>(i), <span class="st">'n'</span>)</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Add the tibble to the list 'varCounts'</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>      varCounts[[<span class="fu">length</span>(varCounts)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> countTBL</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the user does specify categorical variables</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each of the categorical variables the user specified</span></span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> categoricalVariables) {</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Create a table of counts for each level of the variable</span></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>      countTBL <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">table</span>(censusTibble[,i]), <span class="at">.name_repair =</span> <span class="st">'unique_quiet'</span>)</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Name the columns with the variable name and n</span></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>      <span class="fu">colnames</span>(countTBL) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste</span>(i), <span class="st">'n'</span>)</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Add the tibble to the list 'varCounts'</span></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>      varCounts[[<span class="fu">length</span>(varCounts)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> countTBL</span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine summaries in a list</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>  censusSummary <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">means =</span> varMeans,</span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>                        <span class="at">stdevs =</span> varSDs,</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>                        <span class="at">counts =</span> varCounts)</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>  <span class="co"># --</span></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the summaries</span></span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(censusSummary)</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pums-data-graphical-summary-function" class="level3">
+<h3 class="anchored" data-anchor-id="pums-data-graphical-summary-function">PUMS Data Graphical Summary Function</h3>
+<p>Write a function to plot objects of class census:<br>
+The function will create a boxplot of the numeric variable at the levels of the categorical variable</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot.census <span class="ot">&lt;-</span> <span class="cf">function</span>(censusTibble, numericVariable, categoricalVariable, ...){</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check inputs and return error message if criteria aren't met</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(numericVariable) <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'Only input one numeric variable.'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(categoricalVariable) <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">'Only input one categorical variable.'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create boxplot with weights on rows</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  censusBoxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> censusTibble, </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">get</span>(categoricalVariable), </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">y =</span> <span class="fu">get</span>(numericVariable),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">weight =</span> PWGTP,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">fill =</span> <span class="fu">get</span>(categoricalVariable))) <span class="sc">+</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> categoricalVariable,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> numericVariable,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">fill =</span> categoricalVariable) <span class="sc">+</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the plot</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(censusBoxplot)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="investigation" class="level2">
+<h2 class="anchored" data-anchor-id="investigation">Investigation</h2>
+<p>Investigate the census data using the functions created above (API query function and plotting/summarizing functions):</p>
+<p>My PUMS Census API Key</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>key <span class="ot">&lt;-</span> <span class="st">'533d84cb67d9d71606e0baf0f4e7f32e4af7c4ce'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="examining-travel-time-to-work-and-rent-over-time-and-in-relation-to-age" class="level4">
+<h4 class="anchored" data-anchor-id="examining-travel-time-to-work-and-rent-over-time-and-in-relation-to-age">Examining travel time to work and rent over time and in relation to age</h4>
+<ul>
+<li>First, I’ll view the possible values for region to make sure I’m putting a legal value into the <code>getPUMSyears()</code> function:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>regionValues</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Northeast"   "Puerto Rico" "South"       "Midwest"     "West"       </code></pre>
+</div>
+</div>
+<ul>
+<li>Then I’ll query the PUMS Census API with the <code>getPUMS()</code> function:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>travelTime <span class="ot">&lt;-</span> <span class="fu">getPUMSyears</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="st">'2021'</span>, <span class="st">'2022'</span>, <span class="st">'2023'</span>, <span class="st">'2024'</span>),  <span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'GRPIP'</span>, <span class="st">'JWMNP'</span>, <span class="st">'PWGTP'</span>), <span class="at">geographyLevel =</span> <span class="st">'REGION'</span>, <span class="at">specificGeography =</span> <span class="st">'South'</span>, <span class="at">APIkey =</span> key)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><p>Okay, this query produces an error, so it’s probably too large</p></li>
+<li><p>I’ll try the same query, but with a division instead of a region</p>
+<ul>
+<li>Possible values for division</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>divisionValues</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "West South Central (South Region)"   "Middle Atlantic (Northeast region)" 
+ [3] "West North Central (Midwest region)" "East South Central (South region)"  
+ [5] "East North Central (Midwest region)" "Pacific (West region)"              
+ [7] "Puerto Rico"                         "South Atlantic (South region)"      
+ [9] "Mountain (West region)"              "New England (Northeast region)"     </code></pre>
+</div>
+</div>
+<ul>
+<li>Query</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>travelTime <span class="ot">&lt;-</span> <span class="fu">getPUMSyears</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="st">'2021'</span>, <span class="st">'2022'</span>, <span class="st">'2023'</span>, <span class="st">'2024'</span>),  <span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'AGEP'</span>, <span class="st">'GRPIP'</span>, <span class="st">'JWMNP'</span>, <span class="st">'PWGTP'</span>), <span class="at">geographyLevel =</span> <span class="st">'DIVISION'</span>, <span class="at">specificGeography =</span> <span class="st">'East South Central (South region)'</span>, <span class="at">APIkey =</span> key)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>travelTime</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 803,734 × 7
+    AGEP GRPIP JWMNP PWGTP SEX    DIVISION                          YEAR 
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;chr&gt;                             &lt;chr&gt;
+ 1    19    NA    NA    27 Female East South Central (South region) 2021 
+ 2    20    NA    25    66 Female East South Central (South region) 2021 
+ 3    85    NA    NA    13 Male   East South Central (South region) 2021 
+ 4    19    NA    NA    52 Male   East South Central (South region) 2021 
+ 5    67    NA    NA    51 Female East South Central (South region) 2021 
+ 6    20    NA    10    15 Female East South Central (South region) 2021 
+ 7    74    NA    NA    17 Male   East South Central (South region) 2021 
+ 8    16    NA    NA    61 Male   East South Central (South region) 2021 
+ 9    83    NA    NA    15 Male   East South Central (South region) 2021 
+10    30    NA    NA    34 Male   East South Central (South region) 2021 
+# ℹ 803,724 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>I’ll look at a numeric summary of the dataset:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(travelTime)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$means
+     AGEP     GRPIP     JWMNP 
+39.544796  9.100516 10.270320 
+
+$stdevs
+    AGEP    GRPIP    JWMNP 
+45.92807 22.69582 21.29667 
+
+$counts
+$counts[[1]]
+# A tibble: 2 × 2
+  SEX         n
+  &lt;chr&gt;   &lt;int&gt;
+1 Male   389384
+2 Female 414350
+
+$counts[[2]]
+# A tibble: 4 × 2
+  YEAR       n
+  &lt;chr&gt;  &lt;int&gt;
+1 2021  193964
+2 2022  200355
+3 2023  202913
+4 2024  206502</code></pre>
+</div>
+</div>
+<ul>
+<li>Now I want to explore my different questions by plotting this dataset
+<ul>
+<li>I think it will be interesting to compare how travel time to work varies as we get farther from the onset of the COVID-19 pandemic in the East South Central Division:</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(travelTime, <span class="at">numericVariable =</span> <span class="st">'JWMNP'</span>, <span class="at">categoricalVariable =</span> <span class="st">'YEAR'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 497646 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There does not appear to be any difference in median travel time to work between 2021 and 2024.<br>
+</p>
+<ul>
+<li>I will also compare gross rent as a percentage of household income past 12 months with travel time:
+<ul>
+<li>Whoops, I forgot this function only does a numeric variable vs.&nbsp;a categorical variable, not two numeric variables. Instead, I’ll look at gross rent as a percentage of household income past 12 months vs.&nbsp;year:</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(travelTime, <span class="at">numericVariable =</span> <span class="st">'GRPIP'</span>, <span class="at">categoricalVariable =</span> <span class="st">'YEAR'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 649679 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There appears to be no difference in median gross rent as a percentage of household income past 12 months in the different years.</p>
+<ul>
+<li>And finally, I’ll compare percentage of income going to rent with age:
+<ul>
+<li>Since this won’t work to plot with my summary plotting function either, I’ll look at gross rent as a percentage of household income past 12 months vs.&nbsp;sex:</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(travelTime, <span class="at">numericVariable =</span> <span class="st">'GRPIP'</span>, <span class="at">categoricalVariable =</span> <span class="st">'SEX'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 649679 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The median gross rent as a percentage of household income past 12 months appears to be slightly higher for women, as is the third quartile.</p>
+</section>
+<section id="examining-travel-time-to-work-alongside-household-language-and-educational-attainment-in-idaho-my-home-state" class="level4">
+<h4 class="anchored" data-anchor-id="examining-travel-time-to-work-alongside-household-language-and-educational-attainment-in-idaho-my-home-state">Examining travel time to work alongside household language and educational attainment in Idaho (my home state)</h4>
+<ul>
+<li>First I’ll query the PUMS Census API with the <code>getPUMS()</code> function:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>traveltHHLSCHL <span class="ot">&lt;-</span> <span class="fu">getPUMSyears</span>(<span class="at">years =</span> <span class="fu">c</span>(<span class="st">'2021'</span>, <span class="st">'2022'</span>, <span class="st">'2023'</span>, <span class="st">'2024'</span>),  <span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'JWMNP'</span>, <span class="st">'PWGTP'</span>), <span class="at">categoricalVariables =</span> <span class="fu">c</span>(<span class="st">'HHL'</span>, <span class="st">'SCHL'</span>), <span class="at">geographyLevel =</span> <span class="st">'STATE'</span>, <span class="at">specificGeography =</span> <span class="st">'Idaho/ID'</span>, <span class="at">APIkey =</span> key)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>traveltHHLSCHL</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 79,136 × 6
+   JWMNP PWGTP HHL             SCHL                               STATE    YEAR 
+   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;           &lt;fct&gt;                              &lt;chr&gt;    &lt;chr&gt;
+ 1    NA    14 N/A (GQ/vacant) Regular high school diploma        Idaho/ID 2021 
+ 2    NA   130 N/A (GQ/vacant) Grade 11                           Idaho/ID 2021 
+ 3    NA   192 N/A (GQ/vacant) Regular high school diploma        Idaho/ID 2021 
+ 4    NA    85 N/A (GQ/vacant) Grade 9                            Idaho/ID 2021 
+ 5    NA    27 N/A (GQ/vacant) Regular high school diploma        Idaho/ID 2021 
+ 6    NA   114 N/A (GQ/vacant) Regular high school diploma        Idaho/ID 2021 
+ 7    50    65 N/A (GQ/vacant) Some college, but less than 1 year Idaho/ID 2021 
+ 8    NA    35 N/A (GQ/vacant) Associate's degree                 Idaho/ID 2021 
+ 9    NA    10 N/A (GQ/vacant) Grade 11                           Idaho/ID 2021 
+10    NA   159 N/A (GQ/vacant) Grade 11                           Idaho/ID 2021 
+# ℹ 79,126 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>I’ll look at a numeric summary of the dataset:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(traveltHHLSCHL)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$means
+   JWMNP 
+9.013449 
+
+$stdevs
+   JWMNP 
+19.47529 
+
+$counts
+$counts[[1]]
+# A tibble: 6 × 2
+  HHL                                    n
+  &lt;chr&gt;                              &lt;int&gt;
+1 N/A (GQ/vacant)                     3980
+2 English Only                       65162
+3 Spanish                             6691
+4 Other Indo-European languages       1678
+5 Asian and Pacific Island languages  1024
+6 Other Language                       601
+
+$counts[[2]]
+# A tibble: 25 × 2
+   SCHL                                               n
+   &lt;chr&gt;                                          &lt;int&gt;
+ 1 Regular high school diploma                    14233
+ 2 No schooling completed                             0
+ 3 Grade 1                                            0
+ 4 Kindergarten                                       0
+ 5 Grade 4                                            0
+ 6 Professional degree beyond a bachelor's degree   954
+ 7 1 or more years of college credit, no degree   10310
+ 8 Master's degree                                 4214
+ 9 Grade 7                                         1193
+10 Associate's degree                              5716
+# ℹ 15 more rows
+
+$counts[[3]]
+# A tibble: 4 × 2
+  YEAR      n
+  &lt;chr&gt; &lt;int&gt;
+1 2021  17936
+2 2022  19884
+3 2023  20447
+4 2024  20869</code></pre>
+</div>
+</div>
+<ul>
+<li>Now I want to explore my different questions by plotting this dataset
+<ul>
+<li>How does travel time to work vary between households with different languages?</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(traveltHHLSCHL, <span class="at">categoricalVariable =</span> <span class="st">'HHL'</span>, <span class="at">numericVariable =</span> <span class="st">'JWMNP'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 49229 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The median travel time to work appears to be similar, although households that speak an “Other Indo-European language” appear to have slightly higher travel times.</p>
+<ul>
+<li>How does travel time to work vary at different educational attainment levels?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(traveltHHLSCHL, <span class="at">categoricalVariable =</span> <span class="st">'SCHL'</span>, <span class="at">numericVariable =</span> <span class="st">'JWMNP'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 49229 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot appears to show slightly higher median travel times to work for educational attainment levels of Grade 7 and Grade 8 than the other levels. There is also a box for NA with slightly higher median travel times, but those observations could have been removed from the dataset.</p>
+</section>
+<section id="examining-sex-and-school-enrollment-against-gas-cost" class="level4">
+<h4 class="anchored" data-anchor-id="examining-sex-and-school-enrollment-against-gas-cost">Examining sex and school enrollment against gas cost</h4>
+<ul>
+<li>First I’ll query the PUMS Census API with the <code>getPUMS()</code> function:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>schoolSexGas <span class="ot">&lt;-</span> <span class="fu">getPUMSyears</span>(<span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'GASP'</span>, <span class="st">'JWAP'</span>, <span class="st">'PWGTP'</span>), <span class="at">categoricalVariables =</span> <span class="fu">c</span>(<span class="st">'SEX'</span>, <span class="st">'SCH'</span>), <span class="at">geographyLevel =</span> <span class="st">'STATE'</span>, <span class="at">specificGeography =</span> <span class="cn">NULL</span>, <span class="at">APIkey =</span> key)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>schoolSexGas</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 44,395 × 7
+    GASP JWAP   PWGTP SEX    SCH                                     STATE YEAR 
+   &lt;dbl&gt; &lt;time&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;                                   &lt;chr&gt; &lt;chr&gt;
+ 1    NA    NA     48 Female Yes, private school or college or home… Oreg… 2024 
+ 2    NA    NA     29 Female No, has not attended in the last 3 mon… Oreg… 2024 
+ 3    NA    NA     31 Male   No, has not attended in the last 3 mon… Oreg… 2024 
+ 4    NA    NA     10 Male   No, has not attended in the last 3 mon… Oreg… 2024 
+ 5    NA    NA      2 Male   No, has not attended in the last 3 mon… Oreg… 2024 
+ 6    NA 10:17     36 Male   No, has not attended in the last 3 mon… Oreg… 2024 
+ 7    NA    NA     11 Male   No, has not attended in the last 3 mon… Oreg… 2024 
+ 8    NA    NA     25 Female No, has not attended in the last 3 mon… Oreg… 2024 
+ 9    NA    NA     81 Female No, has not attended in the last 3 mon… Oreg… 2024 
+10    NA    NA     56 Male   No, has not attended in the last 3 mon… Oreg… 2024 
+# ℹ 44,385 more rows</code></pre>
+</div>
+</div>
+<ul>
+<li>I’ll look at a numeric summary of the dataset:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(schoolSexGas, <span class="at">categoricalVariables =</span> <span class="fu">c</span>(<span class="st">'SEX'</span>, <span class="st">'SCH'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$means
+    GASP 
+50.59535 
+
+$stdevs
+    GASP 
+115.4109 
+
+$counts
+$counts[[1]]
+# A tibble: 2 × 2
+  SEX        n
+  &lt;chr&gt;  &lt;int&gt;
+1 Male   21929
+2 Female 22466
+
+$counts[[2]]
+# A tibble: 4 × 2
+  SCH                                               n
+  &lt;chr&gt;                                         &lt;int&gt;
+1 N/A (less than 3 years old)                     992
+2 No, has not attended in the last 3 months     34689
+3 Yes, public school or public college           6981
+4 Yes, private school or college or home school  1733</code></pre>
+</div>
+</div>
+<ul>
+<li>Now I want to explore my different questions by plotting this dataset
+<ul>
+<li>How does gas cost vary by sex?</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(schoolSexGas, <span class="at">categoricalVariable =</span> <span class="st">'SEX'</span>, <span class="at">numericVariable =</span> <span class="st">'GASP'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 22487 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There is no obvious difference in gas cost between sexes. However, the few outliers at gas cost = above $1000 force the y-axis to be larger, which constricts the portion of the plot with the boxes, so there could be some difference that just isn’t visible at this scale.</p>
+<ul>
+<li>How does gas cost to vary by school attendance?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(schoolSexGas, <span class="at">categoricalVariable =</span> <span class="st">'SCH'</span>, <span class="at">numericVariable =</span> <span class="st">'GASP'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 22487 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Riley_Project1_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Again, outliers force all the boxes to be very narrow visually; they all seem to have the same median. It seems odd that observations with a school enrollment level of N/A (less than 3 years old) would have values for gas cost. It would be useful to review the data more thoroughly.</p>
+</section>
+<section id="examining-travel-time-to-work-in-different-states-in-2023" class="level4">
+<h4 class="anchored" data-anchor-id="examining-travel-time-to-work-in-different-states-in-2023">Examining travel time to work in different states in 2023</h4>
+<ul>
+<li>First I’ll query the PUMS Census API with the <code>getPUMS()</code> function:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>allStTravel <span class="ot">&lt;-</span> <span class="fu">getPUMSyears</span>(<span class="at">year =</span> <span class="st">'2023'</span>, <span class="at">numericVariables =</span> <span class="fu">c</span>(<span class="st">'JWMNP'</span>, <span class="st">'PWGTP'</span>), <span class="at">geographyLevel =</span> <span class="st">'STATE'</span>, <span class="at">specificGeography =</span> <span class="st">'ALL'</span>, <span class="at">APIkey =</span> key)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>This was an attempt to show that the user can input an ‘all’ option for specific geography, but the query produced an error, so it’s probably too large</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
